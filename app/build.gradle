@@ -50,4 +50,7 @@ dependencies {
 
     // Testing Navigation
     androidTestImplementation "androidx.navigation:navigation-testing:2.3.5"
+
+    // Material library dependency
+    implementation 'com.google.android.material:material:1.4.0'
 }
