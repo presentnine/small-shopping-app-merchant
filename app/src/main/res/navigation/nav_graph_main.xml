@@ -45,5 +45,20 @@
         android:id="@+id/loginDialog"
         android:name="com.sososhopping.merchant.account.login.view.LoginDialog"
         android:label="login_dialog"
-        tools:layout="@layout/dialog_login" />
+        tools:layout="@layout/dialog_login" >
+        <action
+            android:id="@+id/action_loginDialog_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/startFragment"
+            app:popUpToInclusive="true" />
+    </dialog>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.sososhopping.merchant.main.view.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_startFragment"
+            app:destination="@id/startFragment" />
+    </fragment>
 </navigation>
