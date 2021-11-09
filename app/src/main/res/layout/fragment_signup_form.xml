@@ -168,6 +168,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
+                    android:maxLength="11"
                     android:text="@={signupFormViewModel.phone}"
                     android:hint="@string/signup_form_hint_phone" />
             </com.google.android.material.textfield.TextInputLayout>
