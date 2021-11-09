@@ -8,17 +8,17 @@ public class ShopListModel {
     int id;
     @SerializedName("name")
     String name;
-    @SerializedName("imageUrl")
+    @SerializedName("imgUrl")
     String imageUrl;
     @SerializedName("description")
     String description;
     @SerializedName("storeStatus")
     String status;
 
-    public ShopListModel(int id, String imageUrl, String name, String description, String status) {
+    public ShopListModel(int id, String name, String imageUrl, String description, String status) {
         this.id = id;
-        this.imageUrl = imageUrl;
         this.name = name;
+        this.imageUrl = imageUrl;
         this.description = description;
         this.status = status;
     }
