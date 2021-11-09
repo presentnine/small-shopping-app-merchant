@@ -9,7 +9,11 @@
         android:id="@+id/startFragment"
         android:name="com.sososhopping.merchant.start.StartFragment"
         android:label="fragment_start"
-        tools:layout="@layout/fragment_start" />
+        tools:layout="@layout/fragment_start" >
+        <action
+            android:id="@+id/action_startFragment_to_signupFormFragment"
+            app:destination="@id/signupFormFragment" />
+    </fragment>
     <dialog
         android:id="@+id/networkErrorDialog"
         android:name="com.sososhopping.merchant.error.server.view.NetworkErrorDialog"
@@ -18,4 +22,9 @@
     <action
         android:id="@+id/action_global_networkErrorDialog"
         app:destination="@id/networkErrorDialog" />
+    <fragment
+        android:id="@+id/signupFormFragment"
+        android:name="com.sososhopping.merchant.account.signup.view.SignupFormFragment"
+        android:label="fragment_signup_form"
+        tools:layout="@layout/fragment_signup_form" />
 </navigation>
