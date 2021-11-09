@@ -54,6 +54,13 @@ public class StartFragment extends Fragment {
             }
         });
 
+        binding.login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToLoginDialog();
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -65,5 +72,9 @@ public class StartFragment extends Fragment {
 
     private void navigateToSignupForm() {
         Navigation.findNavController(binding.getRoot()).navigate(R.id.action_startFragment_to_signupFormFragment);
+    }
+
+    private void navigateToLoginDialog() {
+        Navigation.findNavController(binding.getRoot()).navigate(R.id.action_startFragment_to_loginDialog);
     }
 }
