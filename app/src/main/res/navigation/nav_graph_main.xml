@@ -60,5 +60,22 @@
         <action
             android:id="@+id/action_mainFragment_to_startFragment"
             app:destination="@id/startFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_storeRegisterBasicFormFragment"
+            app:destination="@id/storeRegisterBasicFormFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/storeRegisterBasicFormFragment"
+        android:name="com.sososhopping.merchant.store.register.view.StoreRegisterBasicFormFragment"
+        android:label="fragment_store_register_basic_form"
+        tools:layout="@layout/fragment_store_register_basic_form" >
+        <action
+            android:id="@+id/action_storeRegisterBasicFormFragment_to_storeRegisterMetadataFormFragment"
+            app:destination="@id/storeRegisterMetadataFormFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/storeRegisterMetadataFormFragment"
+        android:name="com.sososhopping.merchant.store.register.view.StoreRegisterMetadataFormFragment"
+        android:label="fragment_store_register_metadata_form"
+        tools:layout="@layout/fragment_store_register_metadata_form" />
 </navigation>
