@@ -1,4 +1,4 @@
-package com.sososhopping.merchant.start;
+package com.sososhopping.merchant.account.signup.view;
 
 import android.os.Bundle;
 
@@ -11,18 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sososhopping.merchant.R;
-import com.sososhopping.merchant.databinding.FragmentStartBinding;
+import com.sososhopping.merchant.databinding.FragmentSignupDoneBinding;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link StartFragment#newInstance} factory method to
+ * Use the {@link SignupDoneFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class StartFragment extends Fragment {
+public class SignupDoneFragment extends Fragment {
 
-    private FragmentStartBinding binding;
+    FragmentSignupDoneBinding binding;
 
-    public StartFragment() {
+    public SignupDoneFragment() {
         // Required empty public constructor
     }
 
@@ -30,10 +30,10 @@ public class StartFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment InitialFragment.
+     * @return A new instance of fragment SignupDoneFragment.
      */
-    public static StartFragment newInstance() {
-        return new StartFragment();
+    public static SignupDoneFragment newInstance() {
+        return new SignupDoneFragment();
     }
 
     @Override
@@ -45,12 +45,12 @@ public class StartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_start, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_signup_done, container, false);
 
-        binding.signup.setOnClickListener(new View.OnClickListener() {
+        binding.signupDoneOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToSignupForm();
+                navigateUp();
             }
         });
 
@@ -63,7 +63,7 @@ public class StartFragment extends Fragment {
         binding = null;
     }
 
-    private void navigateToSignupForm() {
-        Navigation.findNavController(binding.getRoot()).navigate(R.id.action_startFragment_to_signupFormFragment);
+    private void navigateUp() {
+        Navigation.findNavController(binding.getRoot()).navigateUp();
     }
 }
