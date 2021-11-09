@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,13 @@ public class StartFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_start, container, false);
 
+        binding.signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToSignupForm();
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -53,5 +61,9 @@ public class StartFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void navigateToSignupForm() {
+        Navigation.findNavController(binding.getRoot()).navigate(R.id.action_startFragment_to_signupFormFragment);
     }
 }
