@@ -26,5 +26,16 @@
         android:id="@+id/signupFormFragment"
         android:name="com.sososhopping.merchant.account.signup.view.SignupFormFragment"
         android:label="fragment_signup_form"
-        tools:layout="@layout/fragment_signup_form" />
+        tools:layout="@layout/fragment_signup_form" >
+        <action
+            android:id="@+id/action_signupFormFragment_to_signupDoneFragment"
+            app:destination="@id/signupDoneFragment"
+            app:popUpTo="@id/startFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupDoneFragment"
+        android:name="com.sososhopping.merchant.account.signup.view.SignupDoneFragment"
+        android:label="fragment_signup_done"
+        tools:layout="@layout/fragment_signup_done" />
 </navigation>
