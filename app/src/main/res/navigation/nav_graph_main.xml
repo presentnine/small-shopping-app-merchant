@@ -63,6 +63,15 @@
         <action
             android:id="@+id/action_mainFragment_to_storeRegisterBasicFormFragment"
             app:destination="@id/storeRegisterBasicFormFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_storeRegisterDeniedFragment"
+            app:destination="@id/storeRegisterDeniedFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_storeRegisterRejectedFragment"
+            app:destination="@id/storeRegisterRejectedFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_storeRegisterPendingFragment"
+            app:destination="@id/storeRegisterPendingFragment" />
     </fragment>
     <fragment
         android:id="@+id/storeRegisterBasicFormFragment"
@@ -87,4 +96,19 @@
         android:name="com.sososhopping.merchant.store.register.view.StoreRegisterDoneFragment"
         android:label="fragment_store_register_done"
         tools:layout="@layout/fragment_store_register_done" />
+    <fragment
+        android:id="@+id/storeRegisterPendingFragment"
+        android:name="com.sososhopping.merchant.store.manage.view.StoreRegisterPendingFragment"
+        android:label="fragment_store_register_pending"
+        tools:layout="@layout/fragment_store_register_pending" />
+    <fragment
+        android:id="@+id/storeRegisterRejectedFragment"
+        android:name="com.sososhopping.merchant.store.manage.view.StoreRegisterRejectedFragment"
+        android:label="fragment_store_register_rejected"
+        tools:layout="@layout/fragment_store_register_rejected" />
+    <fragment
+        android:id="@+id/storeRegisterDeniedFragment"
+        android:name="com.sososhopping.merchant.store.manage.view.StoreRegisterDeniedFragment"
+        android:label="fragment_store_register_denied"
+        tools:layout="@layout/fragment_store_register_denied" />
 </navigation>
