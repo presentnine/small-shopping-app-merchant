@@ -72,6 +72,9 @@
         <action
             android:id="@+id/action_mainFragment_to_storeRegisterPendingFragment"
             app:destination="@id/storeRegisterPendingFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_storeManagementFragment"
+            app:destination="@id/storeManagementFragment" />
     </fragment>
     <fragment
         android:id="@+id/storeRegisterBasicFormFragment"
@@ -111,4 +114,9 @@
         android:name="com.sososhopping.merchant.store.manage.view.StoreRegisterDeniedFragment"
         android:label="fragment_store_register_denied"
         tools:layout="@layout/fragment_store_register_denied" />
+    <fragment
+        android:id="@+id/storeManagementFragment"
+        android:name="com.sososhopping.merchant.store.manage.view.StoreManagementFragment"
+        android:label="fragment_store_management"
+        tools:layout="@layout/fragment_store_management" />
 </navigation>
