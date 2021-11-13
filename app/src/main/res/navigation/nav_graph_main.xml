@@ -127,10 +127,22 @@
         android:id="@+id/itemListFragment"
         android:name="com.sososhopping.merchant.item.view.ItemListFragment"
         android:label="fragment_item_list"
-        tools:layout="@layout/fragment_item_list" />
+        tools:layout="@layout/fragment_item_list" >
+        <action
+            android:id="@+id/action_itemListFragment_to_itemRegisterFragment"
+            app:destination="@id/itemRegisterFragment" />
+        <action
+            android:id="@+id/action_itemListFragment_to_itemUpdateFragment"
+            app:destination="@id/itemUpdateFragment" />
+    </fragment>
     <fragment
         android:id="@+id/itemRegisterFragment"
         android:name="com.sososhopping.merchant.item.view.ItemRegisterFragment"
         android:label="fragment_item_register"
         tools:layout="@layout/fragment_item_register" />
+    <fragment
+        android:id="@+id/itemUpdateFragment"
+        android:name="com.sososhopping.merchant.item.view.ItemUpdateFragment"
+        android:label="fragment_item_update"
+        tools:layout="@layout/fragment_item_update" />
 </navigation>
