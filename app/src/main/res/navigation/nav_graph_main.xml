@@ -128,4 +128,9 @@
         android:name="com.sososhopping.merchant.item.view.ItemListFragment"
         android:label="fragment_item_list"
         tools:layout="@layout/fragment_item_list" />
+    <fragment
+        android:id="@+id/itemRegisterFragment"
+        android:name="com.sososhopping.merchant.item.view.ItemRegisterFragment"
+        android:label="fragment_item_register"
+        tools:layout="@layout/fragment_item_register" />
 </navigation>
