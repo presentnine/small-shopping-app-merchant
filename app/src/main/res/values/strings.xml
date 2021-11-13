@@ -67,10 +67,28 @@
     <string name="store_register_basic_name">점포명</string>
     <string name="store_register_basic_store_description">점포 소개글</string>
     <string name="store_register_basic_call">연락처</string>
+
+    <string-array name="store_register_basic_spinner">
+        <item>카테고리</item>
+        <item>마트</item>
+        <item>정육점</item>
+        <item>수산물</item>
+        <item>베이커리</item>
+        <item>카페</item>
+        <item>헤어샵</item>
+        <item>세탁소</item>
+        <item>서점</item>
+        <item>사무용품</item>
+        <item>학원</item>
+        <item>사진관</item>
+        <item>화원</item>
+        <item>의류</item>
+    </string-array>
+
     <string name="store_register_basic_open_days">영업일</string>
     <string name="store_register_basic_monday">월</string>
-    <string name="store_register_basic_opening_hour">여는 시간</string>
-    <string name="store_register_basic_closing_hour">닫는 시간</string>
+    <string name="store_register_basic_opening_hour">여는 시간 (ex: 0800)</string>
+    <string name="store_register_basic_closing_hour">닫는 시간 (ex: 1700)</string>
     <string name="store_register_basic_tuesday">화</string>
     <string name="store_register_basic_wednesday">수</string>
     <string name="store_register_basic_thursday">목</string>

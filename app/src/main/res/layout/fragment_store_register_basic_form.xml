@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="storeRegisterViewModel"
+            type="com.sososhopping.merchant.store.register.viewmodel.StoreRegisterViewModel" />
+    </data>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,8 +52,8 @@
                 android:layout_width="160dp"
                 android:layout_height="160dp"
                 android:layout_marginTop="24dp"
-                android:src="@drawable/ic_baseline_shopping_basket_24"
                 android:contentDescription="@string/store_register_basic_image_description"
+                app:imgBitmap="@{storeRegisterViewModel.bitmap}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title"/>
@@ -83,6 +89,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:text="@={storeRegisterViewModel.name}"
                     android:hint="@string/store_register_basic_name" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,6 +112,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text|textMultiLine"
                     android:lines="2"
+                    android:text="@={storeRegisterViewModel.description}"
                     android:hint="@string/store_register_basic_store_description" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,6 +134,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
+                    android:text="@={storeRegisterViewModel.phone}"
                     android:hint="@string/store_register_basic_call" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -133,6 +142,7 @@
                 android:id="@+id/category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="48dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
@@ -160,6 +170,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="12dp"
                 android:text="@string/store_register_basic_monday"
+                android:checked="@={storeRegisterViewModel.openMonday}"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintEnd_toStartOf="@id/openHourMonday"
                 app:layout_constraintTop_toTopOf="@id/openHourMonday"
@@ -169,7 +180,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:id="@+id/openHourMonday"
-                android:layout_width="134dp"
+                android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 app:boxStrokeColor="@color/main_500"
                 app:hintTextColor="@color/main_500"
@@ -181,13 +192,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="time"
+                    android:maxLength="4"
+                    android:text="@={storeRegisterViewModel.openHourMonday}"
                     android:hint="@string/store_register_basic_opening_hour" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:id="@+id/closeHourMonday"
-                android:layout_width="134dp"
+                android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 app:boxStrokeColor="@color/main_500"
@@ -199,6 +212,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="time"
+                    android:maxLength="4"
+                    android:text="@={storeRegisterViewModel.closeHourMonday}"
                     android:hint="@string/store_register_basic_closing_hour" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -209,6 +224,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="12dp"
                 android:text="@string/store_register_basic_tuesday"
+                android:checked="@={storeRegisterViewModel.openTuesday}"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintEnd_toStartOf="@id/openHourTuesday"
                 app:layout_constraintTop_toTopOf="@id/openHourTuesday"
@@ -218,7 +234,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:id="@+id/openHourTuesday"
-                android:layout_width="134dp"
+                android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 app:boxStrokeColor="@color/main_500"
@@ -231,13 +247,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="time"
+                    android:maxLength="4"
+                    android:text="@={storeRegisterViewModel.openHourTuesday}"
                     android:hint="@string/store_register_basic_opening_hour" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:id="@+id/closeHourTuesday"
-                android:layout_width="134dp"
+                android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="12dp"
@@ -250,6 +268,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="time"
+                    android:maxLength="4"
+                    android:text="@={storeRegisterViewModel.closeHourTuesday}"
                     android:hint="@string/store_register_basic_closing_hour" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -260,6 +280,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="12dp"
                 android:text="@string/store_register_basic_wednesday"
+                android:checked="@={storeRegisterViewModel.openWednesday}"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintEnd_toStartOf="@id/openHourWednesday"
                 app:layout_constraintTop_toTopOf="@id/openHourWednesday"
@@ -269,7 +290,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:id="@+id/openHourWednesday"
-                android:layout_width="134dp"
+                android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 app:boxStrokeColor="@color/main_500"
@@ -282,13 +303,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="time"
+                    android:maxLength="4"
+                    android:text="@={storeRegisterViewModel.openHourWednesday}"
                     android:hint="@string/store_register_basic_opening_hour" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:id="@+id/closeHourWednesday"
-                android:layout_width="134dp"
+                android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="12dp"
@@ -301,6 +324,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="time"
+                    android:maxLength="4"
+                    android:text="@={storeRegisterViewModel.closeHourWednesday}"
                     android:hint="@string/store_register_basic_closing_hour" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -311,6 +336,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="12dp"
                 android:text="@string/store_register_basic_thursday"
+                android:checked="@={storeRegisterViewModel.openThursday}"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintEnd_toStartOf="@id/openHourThursday"
                 app:layout_constraintTop_toTopOf="@id/openHourThursday"
@@ -320,7 +346,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:id="@+id/openHourThursday"
-                android:layout_width="134dp"
+                android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 app:boxStrokeColor="@color/main_500"
@@ -333,13 +359,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="time"
+                    android:maxLength="4"
+                    android:text="@={storeRegisterViewModel.openHourThursday}"
                     android:hint="@string/store_register_basic_opening_hour" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:id="@+id/closeHourThursday"
-                android:layout_width="134dp"
+                android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="12dp"
@@ -352,6 +380,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="time"
+                    android:maxLength="4"
+                    android:text="@={storeRegisterViewModel.closeHourThursday}"
                     android:hint="@string/store_register_basic_closing_hour" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -362,6 +392,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="12dp"
                 android:text="@string/store_register_basic_friday"
+                android:checked="@={storeRegisterViewModel.openFriday}"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintEnd_toStartOf="@id/openHourFriday"
                 app:layout_constraintTop_toTopOf="@id/openHourFriday"
@@ -371,7 +402,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:id="@+id/openHourFriday"
-                android:layout_width="134dp"
+                android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 app:boxStrokeColor="@color/main_500"
@@ -384,13 +415,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="time"
+                    android:maxLength="4"
+                    android:text="@={storeRegisterViewModel.openHourFriday}"
                     android:hint="@string/store_register_basic_opening_hour" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:id="@+id/closeHourFriday"
-                android:layout_width="134dp"
+                android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="12dp"
@@ -403,26 +436,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="time"
+                    android:maxLength="4"
+                    android:text="@={storeRegisterViewModel.closeHourFriday}"
                     android:hint="@string/store_register_basic_closing_hour" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/checkBoxSaturday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="12dp"
-            android:text="@string/store_register_basic_saturday"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintEnd_toStartOf="@id/openHourSaturday"
-            app:layout_constraintTop_toTopOf="@id/openHourSaturday"
-            app:layout_constraintBottom_toBottomOf="@id/openHourSaturday"
-            app:layout_constraintStart_toStartOf="parent" />
+                android:id="@+id/checkBoxSaturday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="12dp"
+                android:text="@string/store_register_basic_saturday"
+                android:checked="@={storeRegisterViewModel.openSaturday}"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintEnd_toStartOf="@id/openHourSaturday"
+                app:layout_constraintTop_toTopOf="@id/openHourSaturday"
+                app:layout_constraintBottom_toBottomOf="@id/openHourSaturday"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:id="@+id/openHourSaturday"
-                android:layout_width="134dp"
+                android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 app:boxStrokeColor="@color/main_500"
@@ -435,13 +471,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="time"
+                    android:maxLength="4"
+                    android:text="@={storeRegisterViewModel.openHourSaturday}"
                     android:hint="@string/store_register_basic_opening_hour" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:id="@+id/closeHourSaturday"
-                android:layout_width="134dp"
+                android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="12dp"
@@ -454,6 +492,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="time"
+                    android:maxLength="4"
+                    android:text="@={storeRegisterViewModel.closeHourSaturday}"
                     android:hint="@string/store_register_basic_closing_hour" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -464,6 +504,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="12dp"
                 android:text="@string/store_register_basic_sunday"
+                android:checked="@={storeRegisterViewModel.openSunday}"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintEnd_toStartOf="@id/openHourSunday"
                 app:layout_constraintTop_toTopOf="@id/openHourSunday"
@@ -473,7 +514,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:id="@+id/openHourSunday"
-                android:layout_width="134dp"
+                android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 app:boxStrokeColor="@color/main_500"
@@ -486,13 +527,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="time"
+                    android:maxLength="4"
+                    android:text="@={storeRegisterViewModel.openHourSunday}"
                     android:hint="@string/store_register_basic_opening_hour" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:id="@+id/closeHourSunday"
-                android:layout_width="134dp"
+                android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="12dp"
@@ -505,6 +548,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="time"
+                    android:maxLength="4"
+                    android:text="@={storeRegisterViewModel.closeHourSunday}"
                     android:hint="@string/store_register_basic_closing_hour" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -526,6 +571,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:text="@={storeRegisterViewModel.openHourDetail}"
                     android:hint="@string/store_register_basic_open_detail" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -551,6 +597,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:text="@string/store_register_basic_delivery"
+                android:checked="@={storeRegisterViewModel.delivery}"
                 app:layout_constraintTop_toBottomOf="@id/additionalService"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -563,6 +610,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:text="@string/store_register_basic_local_currency"
+                android:checked="@={storeRegisterViewModel.localCurrency}"
                 app:layout_constraintTop_toBottomOf="@id/delivery"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />

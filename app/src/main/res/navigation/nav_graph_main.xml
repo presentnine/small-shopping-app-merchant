@@ -77,5 +77,14 @@
         android:id="@+id/storeRegisterMetadataFormFragment"
         android:name="com.sososhopping.merchant.store.register.view.StoreRegisterMetadataFormFragment"
         android:label="fragment_store_register_metadata_form"
-        tools:layout="@layout/fragment_store_register_metadata_form" />
+        tools:layout="@layout/fragment_store_register_metadata_form" >
+        <action
+            android:id="@+id/action_storeRegisterMetadataFormFragment_to_storeRegisterDoneFragment"
+            app:destination="@id/storeRegisterDoneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/storeRegisterDoneFragment"
+        android:name="com.sososhopping.merchant.store.register.view.StoreRegisterDoneFragment"
+        android:label="fragment_store_register_done"
+        tools:layout="@layout/fragment_store_register_done" />
 </navigation>

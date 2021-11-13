@@ -2,11 +2,14 @@ package com.sososhopping.merchant.main.view;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -58,6 +61,14 @@ public class NestedShopListFragment extends Fragment {
         Runnable onFailed = this::onNetworkError;
 
         shopListRepository.requestMyShopList(((MainActivity)getActivity()).getLoginToken(), onShopListAcquired, onFailed);
+
+        binding.shopListToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.shopListRegister) NavHostFragment.findNavController(getParentFragment().getParentFragment()).navigate(R.id.action_mainFragment_to_storeRegisterBasicFormFragment);
+                return true;
+            }
+        });
 
         return binding.getRoot();
     }
