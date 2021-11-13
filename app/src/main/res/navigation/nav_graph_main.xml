@@ -118,5 +118,14 @@
         android:id="@+id/storeManagementFragment"
         android:name="com.sososhopping.merchant.store.manage.view.StoreManagementFragment"
         android:label="fragment_store_management"
-        tools:layout="@layout/fragment_store_management" />
+        tools:layout="@layout/fragment_store_management" >
+        <action
+            android:id="@+id/action_storeManagementFragment_to_itemListFragment"
+            app:destination="@id/itemListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemListFragment"
+        android:name="com.sososhopping.merchant.item.view.ItemListFragment"
+        android:label="fragment_item_list"
+        tools:layout="@layout/fragment_item_list" />
 </navigation>
