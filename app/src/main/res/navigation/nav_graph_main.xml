@@ -125,6 +125,12 @@
         <action
             android:id="@+id/action_storeManagementFragment_to_pointManageFragment"
             app:destination="@id/pointManageFragment" />
+        <action
+            android:id="@+id/action_storeManagementFragment_to_reviewListFragment"
+            app:destination="@id/reviewListFragment" />
+        <action
+            android:id="@+id/action_storeManagementFragment_to_boardListFragment"
+            app:destination="@id/boardListFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemListFragment"
@@ -171,5 +177,27 @@
         android:name="com.sososhopping.merchant.point.view.PointCheckDialog"
         android:label="point_check_dialog"
         tools:layout="@layout/dialog_point_check" />
+    <fragment
+        android:id="@+id/boardListFragment"
+        android:name="com.sososhopping.merchant.board.view.BoardListFragment"
+        android:label="fragment_board_list"
+        tools:layout="@layout/fragment_board_list" >
+        <action
+            android:id="@+id/action_boardListFragment_to_boardRegisterFragment"
+            app:destination="@id/boardRegisterFragment" />
+        <action
+            android:id="@+id/action_boardListFragment_to_boardUpdateFragment"
+            app:destination="@id/boardUpdateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/boardRegisterFragment"
+        android:name="com.sososhopping.merchant.board.view.BoardRegisterFragment"
+        android:label="fragment_board_register"
+        tools:layout="@layout/fragment_board_register" />
+    <fragment
+        android:id="@+id/boardUpdateFragment"
+        android:name="com.sososhopping.merchant.board.view.BoardUpdateFragment"
+        android:label="fragment_board_update"
+        tools:layout="@layout/fragment_board_update" />
 
 </navigation>
