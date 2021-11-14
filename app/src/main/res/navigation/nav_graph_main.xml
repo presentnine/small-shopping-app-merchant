@@ -122,6 +122,9 @@
         <action
             android:id="@+id/action_storeManagementFragment_to_itemListFragment"
             app:destination="@id/itemListFragment" />
+        <action
+            android:id="@+id/action_storeManagementFragment_to_pointManageFragment"
+            app:destination="@id/pointManageFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemListFragment"
@@ -145,4 +148,28 @@
         android:name="com.sososhopping.merchant.item.view.ItemUpdateFragment"
         android:label="fragment_item_update"
         tools:layout="@layout/fragment_item_update" />
+    <fragment
+        android:id="@+id/pointManageFragment"
+        android:name="com.sososhopping.merchant.point.view.PointManageFragment"
+        android:label="fragment_point_manage"
+        tools:layout="@layout/fragment_point_manage" >
+        <action
+            android:id="@+id/action_pointManageFragment_to_pointFormDialog"
+            app:destination="@id/pointFormDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/pointFormDialog"
+        android:name="com.sososhopping.merchant.point.view.PointInfoFormDialog"
+        android:label="point_form_dialog"
+        tools:layout="@layout/dialog_point_basic_form" >
+        <action
+            android:id="@+id/action_pointFormDialog_to_pointCheckDialog"
+            app:destination="@id/pointCheckDialog" />
+    </dialog>
+    <dialog
+        android:id="@+id/pointCheckDialog"
+        android:name="com.sososhopping.merchant.point.view.PointCheckDialog"
+        android:label="point_check_dialog"
+        tools:layout="@layout/dialog_point_check" />
+
 </navigation>
