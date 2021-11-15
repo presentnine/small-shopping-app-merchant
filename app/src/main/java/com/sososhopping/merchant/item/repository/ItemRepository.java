@@ -47,12 +47,9 @@ public class ItemRepository {
             @Override
             public void onResponse(Call<List<ItemListModel>> call, Response<List<ItemListModel>> response) {
                 if (response.code() == 200) {
-                    System.out.println(response.code());
-                    System.out.println(response.body().get(0).getUnitPrice());
                     onSuccess.accept(response.body());
                 } else {
                     System.out.println(response.code());
-                    System.out.println(response.body());
                     onFailed.run();
                 }
             }
