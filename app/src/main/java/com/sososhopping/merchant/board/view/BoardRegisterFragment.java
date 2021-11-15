@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -109,11 +110,13 @@ public class BoardRegisterFragment extends Fragment {
             }
         });
 
+        Runnable onSuccess = this::onSuccess;
+
         binding.shopListToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if(item.getItemId() == R.id.boardRegister) {
-                    viewModel.requestRegister(((MainActivity)getActivity()).getLoginToken(), storeId);
+                    viewModel.requestRegister(((MainActivity)getActivity()).getLoginToken(), storeId, onSuccess);
                 }
                 return true;
             }
@@ -137,5 +140,9 @@ public class BoardRegisterFragment extends Fragment {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         someActivityResultLauncher.launch(intent);
+    }
+
+    private void onSuccess() {
+        NavHostFragment.findNavController(this).navigateUp();
     }
 }

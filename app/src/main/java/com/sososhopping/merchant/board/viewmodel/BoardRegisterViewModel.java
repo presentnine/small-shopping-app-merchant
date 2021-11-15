@@ -42,8 +42,8 @@ public class BoardRegisterViewModel extends ViewModel {
         this.bitmap.setValue(bitmap);
     }
 
-    public void requestRegister(String token, int storeId) {
-        BoardRepository.getInstance().requestBoardRegister(token, storeId, this.toDto(), this.bitmap.getValue());
+    public void requestRegister(String token, int storeId, Runnable onSuccess) {
+        BoardRepository.getInstance().requestBoardRegister(token, storeId, this.toDto(), this.bitmap.getValue(), onSuccess);
     }
 
     private BoardRegisterDto toDto() {

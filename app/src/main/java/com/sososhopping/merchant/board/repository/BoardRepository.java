@@ -63,12 +63,13 @@ public class BoardRepository {
         });
     }
 
-    public void requestBoardRegister(String token, int storeId, BoardRegisterDto dto, Bitmap bitmap){
+    public void requestBoardRegister(String token, int storeId, BoardRegisterDto dto, Bitmap bitmap, Runnable onSuceess){
         shopListService.requestBoardRegister(token, storeId, MultipartBody.Part.createFormData("dto", "dto", RequestBody.create(MediaType.parse("application/json"), new GsonBuilder().create().toJson(dto))), MultipartBody.Part.createFormData("img", "image.jpg", new BitmapRequestBody(bitmap))).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 System.out.println(response.code());
                 System.out.println("success");
+                onSuceess.run();
             }
 
             @Override
