@@ -10,8 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sososhopping.merchant.MainActivity;
 import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.FragmentNestedStoreConsoleBinding;
+import com.sososhopping.merchant.store.manage.dto.StoreBusinessStatusDto;
+import com.sososhopping.merchant.store.manage.repository.StoreBusinessStatusRepository;
+
+import java.util.function.Consumer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +28,8 @@ public class NestedStoreConsoleFragment extends Fragment {
     private static final String STOREID = "storeId";
 
     private int storeId;
+
+    FragmentNestedStoreConsoleBinding binding;
 
     public NestedStoreConsoleFragment() {
         // Required empty public constructor
@@ -54,7 +61,11 @@ public class NestedStoreConsoleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        FragmentNestedStoreConsoleBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_nested_store_console, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_nested_store_console, container, false);
+
+        Consumer<StoreBusinessStatusDto> onStatusChecked = this::onBusinessStatusChecked;
+
+        StoreBusinessStatusRepository.getInstance().requestStoreBusinessStatus(((MainActivity)getActivity()).getLoginToken(), storeId, onStatusChecked);
 
         binding.itemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +85,26 @@ public class NestedStoreConsoleFragment extends Fragment {
             }
         });
 
+        binding.storeOpenLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StoreBusinessStatusRepository.getInstance().requestStoreBusinessStatusUpdate(((MainActivity)getActivity()).getLoginToken(), storeId, onStatusChecked);
+            }
+        });
+
         return binding.getRoot();
+    }
+
+    private void onBusinessStatusChecked(StoreBusinessStatusDto dto) {
+        System.out.println(storeId);
+        boolean result = dto.isBusinessStatus();
+
+        if (result) {
+            binding.storeOpenImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_pause_24));
+            binding.storeOpenText.setText("영업 중지");
+        } else {
+            binding.storeOpenImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_play_arrow_24));
+            binding.storeOpenText.setText("영업 재개");
+        }
     }
 }
