@@ -1,14 +1,33 @@
 package com.sososhopping.merchant.item.view;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sososhopping.merchant.MainActivity;
 import com.sososhopping.merchant.R;
+import com.sososhopping.merchant.databinding.FragmentItemRegisterBinding;
+import com.sososhopping.merchant.item.viewmodel.ItemRegisterViewModel;
+import com.sososhopping.merchant.store.register.viewmodel.StoreRegisterViewModel;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,14 +36,11 @@ import com.sososhopping.merchant.R;
  */
 public class ItemRegisterFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String STOREID = "storeId";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private int storeId;
+
+    ActivityResultLauncher<Intent> someActivityResultLauncher;
 
     public ItemRegisterFragment() {
         // Required empty public constructor
@@ -34,16 +50,13 @@ public class ItemRegisterFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment ItemRegisterFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ItemRegisterFragment newInstance(String param1, String param2) {
+    public static ItemRegisterFragment newInstance(int storeId) {
         ItemRegisterFragment fragment = new ItemRegisterFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(STOREID, storeId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,8 +65,7 @@ public class ItemRegisterFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            storeId = getArguments().getInt(STOREID);
         }
     }
 
@@ -61,6 +73,56 @@ public class ItemRegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_item_register, container, false);
+        FragmentItemRegisterBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_item_register, container, false);
+
+        ItemRegisterViewModel viewModel = new ViewModelProvider(requireActivity()).get(ItemRegisterViewModel.class);
+        binding.setItemRegisterViewModel(viewModel);
+
+        viewModel.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.default_img));
+
+        someActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            Intent data = result.getData();
+                            try{
+                                InputStream inputStream = getActivity().getContentResolver().openInputStream(data.getData());
+                                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                                binding.mainImage.setImageBitmap(bitmap);
+                                viewModel.setBitmap(bitmap);
+                            }
+                            catch (IOException e){
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
+
+        binding.selectMainImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openAlbumForResult();
+            }
+        });
+
+        binding.shopListToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.itemRegister){
+                    viewModel.requestRegister(((MainActivity)getActivity()).getLoginToken(), storeId);
+                }
+                return true;
+            }
+        });
+
+        return binding.getRoot();
+    }
+
+    private void openAlbumForResult() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        someActivityResultLauncher.launch(intent);
     }
 }

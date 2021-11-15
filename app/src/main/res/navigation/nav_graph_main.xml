@@ -144,12 +144,21 @@
         <action
             android:id="@+id/action_itemListFragment_to_itemUpdateFragment"
             app:destination="@id/itemUpdateFragment" />
+        <argument
+            android:name="storeId"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/itemRegisterFragment"
         android:name="com.sososhopping.merchant.item.view.ItemRegisterFragment"
         android:label="fragment_item_register"
-        tools:layout="@layout/fragment_item_register" />
+        tools:layout="@layout/fragment_item_register" >
+        <argument
+            android:name="storeId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
     <fragment
         android:id="@+id/itemUpdateFragment"
         android:name="com.sososhopping.merchant.item.view.ItemUpdateFragment"

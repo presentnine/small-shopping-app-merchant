@@ -2,13 +2,16 @@ package com.sososhopping.merchant.store.manage.view;
 
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.sososhopping.merchant.R;
+import com.sososhopping.merchant.databinding.FragmentNestedStoreConsoleBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,6 +55,17 @@ public class NestedStoreConsoleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_nested_store_console, container, false);
+        FragmentNestedStoreConsoleBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_nested_store_console, container, false);
+
+        binding.itemLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt(STOREID, storeId);
+                NavHostFragment.findNavController(getParentFragment().getParentFragment()).navigate(R.id.action_storeManagementFragment_to_itemListFragment, bundle);
+            }
+        });
+
+        return binding.getRoot();
     }
 }

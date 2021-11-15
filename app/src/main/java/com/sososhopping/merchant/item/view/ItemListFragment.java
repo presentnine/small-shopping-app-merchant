@@ -2,13 +2,25 @@ package com.sososhopping.merchant.item.view;
 
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sososhopping.merchant.MainActivity;
 import com.sososhopping.merchant.R;
+import com.sososhopping.merchant.databinding.FragmentItemListBinding;
+import com.sososhopping.merchant.item.model.ItemListModel;
+import com.sososhopping.merchant.item.repository.ItemRepository;
+import com.sososhopping.merchant.item.service.ItemService;
+import com.sososhopping.merchant.main.model.ShopListModel;
+
+import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,14 +29,13 @@ import com.sososhopping.merchant.R;
  */
 public class ItemListFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String STOREID = "storeId";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private int storeId;
+
+    FragmentItemListBinding binding;
+
+    private final ItemRepository itemRepository = ItemRepository.getInstance();
 
     public ItemListFragment() {
         // Required empty public constructor
@@ -34,16 +45,13 @@ public class ItemListFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment ItemListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ItemListFragment newInstance(String param1, String param2) {
+    public static ItemListFragment newInstance(int storeId) {
         ItemListFragment fragment = new ItemListFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(STOREID, storeId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,8 +60,7 @@ public class ItemListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            storeId = getArguments().getInt(STOREID);
         }
     }
 
@@ -61,6 +68,30 @@ public class ItemListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_item_list, container, false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_item_list, container, false);
+
+        Consumer<List<ItemListModel>> onItemListAcquired = this::onItemListAcquired;
+        Runnable onFailed = this::onNetworkError;
+
+        itemRepository.requestMyShopList(((MainActivity)getActivity()).getLoginToken(), storeId, onItemListAcquired, onFailed);
+
+        binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt(STOREID, storeId);
+                Navigation.findNavController(v).navigate(R.id.action_itemListFragment_to_itemRegisterFragment, bundle);
+            }
+        });
+
+        return binding.getRoot();
+    }
+
+    private void onItemListAcquired(List<ItemListModel> itemList) {
+        binding.shopListRecyclerView.setAdapter(new ItemListRecyclerViewAdapter(itemList));
+    }
+
+    private void onNetworkError() {
+        NavHostFragment.findNavController(this).navigate(R.id.action_global_networkErrorDialog);
     }
 }
