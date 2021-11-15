@@ -284,7 +284,6 @@
                     android:id="@+id/storeOpenImg"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:src="@drawable/ic_baseline_pause_24"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -293,7 +292,6 @@
                     android:id="@+id/storeOpenText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="영업 중지"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -30,7 +30,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/shopListItemTitle"
+                android:id="@+id/Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
@@ -44,7 +44,7 @@
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
-                android:id="@+id/shopListItemDescription"
+                android:id="@+id/createdAt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
@@ -53,11 +53,11 @@
                 android:text="2021/11/15 03:40"
                 android:ellipsize="end"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/shopListItemTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/Title" />
 
             <TextView
-                android:id="@+id/itemListItemUnit"
-                android:layout_width="wrap_content"
+                android:id="@+id/description"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:textSize="14sp"
@@ -65,7 +65,7 @@
                 android:lines="2"
                 android:text="샘플 게시글 내용입니다. 두 줄에 내용이 들어가며 공간이 없으면 생략합니다.이렇게 다음줄은 안보이는겁니다.\n다음줄"
                 android:ellipsize="end"
-                app:layout_constraintTop_toBottomOf="@+id/shopListItemDescription"
+                app:layout_constraintTop_toBottomOf="@+id/createdAt"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 

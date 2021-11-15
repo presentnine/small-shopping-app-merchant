@@ -198,6 +198,10 @@
         <action
             android:id="@+id/action_boardListFragment_to_boardUpdateFragment"
             app:destination="@id/boardUpdateFragment" />
+        <argument
+            android:name="storeId"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/boardRegisterFragment"

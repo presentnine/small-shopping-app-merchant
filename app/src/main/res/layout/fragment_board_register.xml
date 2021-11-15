@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="boardRegisterViewModel"
+            type="com.sososhopping.merchant.board.viewmodel.BoardRegisterViewModel" />
+    </data>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -23,6 +28,7 @@
                 android:background="@drawable/background_bottom_stroke"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme"
+                app:menu="@menu/menu_board_register_toolbar"
                 app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -49,15 +55,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
                 <RadioButton
+                    android:id="@+id/event"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:checked="true"
+                    android:value="EVENT"
                     android:text="이벤트" />
                 <RadioButton
+                    android:id="@+id/promotion"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:value="PROMOTION"
                     android:text="소식" />
             </RadioGroup>
 
@@ -67,6 +76,7 @@
                 android:layout_height="160dp"
                 android:layout_marginTop="24dp"
                 android:contentDescription="@string/store_register_basic_image_description"
+                app:imgBitmap="@{boardRegisterViewModel.bitmap}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/type"/>
@@ -102,6 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:text="@={boardRegisterViewModel.title}"
                     android:hint="게시글 제목" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,6 +135,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text|textMultiLine"
                     android:lines="10"
+                    android:text="@={boardRegisterViewModel.description}"
                     android:hint="게시글 내용" />
             </com.google.android.material.textfield.TextInputLayout>
 
