@@ -14,6 +14,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -60,11 +62,13 @@ public class StoreRegisterMetadataFormFragment extends Fragment {
         binding.setStoreRegisterViewModel(viewModel);
         binding.setLifecycleOwner(this.getViewLifecycleOwner());
 
+        Runnable onSuccess = this::navigateToNext;
+
         binding.toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.storeRegisterMetadataRegister) {
-                    viewModel.requestRegister(((MainActivity)getActivity()).getLoginToken());
+                    viewModel.requestRegister(((MainActivity)getActivity()).getLoginToken(), onSuccess);
                 }
                 return true;
             }
@@ -79,11 +83,25 @@ public class StoreRegisterMetadataFormFragment extends Fragment {
                 try{
                     System.out.println(viewModel.getStreetAddress().getValue());
                     addressList = geocoder.getFromLocationName(viewModel.getStreetAddress().getValue(), 1);
-                    if(addressList.size() == 0) return;
-                    System.out.println(addressList.get(0).getLatitude());
-                    System.out.println(addressList.get(0).getLongitude());
-                    viewModel.setLng(String.valueOf(addressList.get(0).getLongitude()));
-                    viewModel.setLat(String.valueOf(addressList.get(0).getLatitude()));
+                    if(addressList.size() == 0) {
+                        binding.shopAddress.setErrorEnabled(true);
+                        binding.shopAddress.setError("주소를 확인할 수 없습니다. 올바른 주소인지 확인해주세요.");
+                        binding.shopDetailedAddress.setErrorEnabled(true);
+                        binding.shopDetailedAddress.setError("주소를 확인할 수 없습니다. 올바른 주소인지 확인해주세요.");
+                    }
+                    else {
+                        binding.shopAddressButton.setEnabled(false);
+                        binding.shopAddressButton.setText("확인 완료");
+                        binding.shopAddressButton.setTextColor(getResources().getColor(R.color.positive));
+                        binding.shopAddress.setError(null);
+                        binding.shopAddress.setErrorEnabled(false);
+                        binding.shopAddress.setEnabled(false);
+                        binding.shopDetailedAddress.setEnabled(false);
+                        binding.shopDetailedAddress.setError(null);
+                        binding.shopDetailedAddress.setErrorEnabled(false);
+                        viewModel.setLng(String.valueOf(addressList.get(0).getLongitude()));
+                        viewModel.setLat(String.valueOf(addressList.get(0).getLatitude()));
+                    }
                 } catch (IOException e){
                     e.printStackTrace();
                 }
@@ -97,5 +115,9 @@ public class StoreRegisterMetadataFormFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void navigateToNext() {
+        NavHostFragment.findNavController(this).navigate(R.id.action_storeRegisterMetadataFormFragment_to_storeRegisterDoneFragment);
     }
 }

@@ -2,13 +2,16 @@ package com.sososhopping.merchant.store.register.view;
 
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.sososhopping.merchant.R;
+import com.sososhopping.merchant.databinding.FragmentStoreRegisterDoneBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +37,15 @@ public class StoreRegisterDoneFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_store_register_done, container, false);
+        FragmentStoreRegisterDoneBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_store_register_done, container, false);
+
+        binding.signupDoneOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigateUp();
+            }
+        });
+
+        return binding.getRoot();
     }
 }

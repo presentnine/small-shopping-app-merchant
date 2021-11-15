@@ -232,9 +232,9 @@ public class StoreRegisterViewModel extends ViewModel {
         return detailedAddress;
     }
 
-    public void requestRegister(String token) {
+    public void requestRegister(String token, Runnable onSuccess) {
         StoreRegisterRepository signupRepository = StoreRegisterRepository.getInstance();
-        signupRepository.requestRegister(token, bitmap.getValue(), toDto());
+        signupRepository.requestRegister(token, bitmap.getValue(), toDto(), onSuccess);
     }
 
     private StoreRegisterRequestDto toDto() {

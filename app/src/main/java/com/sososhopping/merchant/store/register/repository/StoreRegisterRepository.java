@@ -31,10 +31,14 @@ public class StoreRegisterRepository {
         return instance;
     }
 
-    public void requestRegister(String token, Bitmap image, StoreRegisterRequestDto dto) {
+    public void requestRegister(String token, Bitmap image, StoreRegisterRequestDto dto, Runnable onSuccess) {
         storeRegisterService.requestRegisterStore(token, MultipartBody.Part.createFormData("dto", "dto", RequestBody.create(MediaType.parse("application/json"), new GsonBuilder().create().toJson(dto))), MultipartBody.Part.createFormData("img", "image.jpg", new BitmapRequestBody(image))).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                System.out.println(response.code());
+                if (response.code() == 201) {
+                    onSuccess.run();
+                }
             }
 
             @Override

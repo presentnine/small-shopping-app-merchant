@@ -36,9 +36,11 @@ public class ShopListRecyclerViewAdapter extends RecyclerView.Adapter<ShopListRe
         holder.mItem = mValues.get(position);
         holder.mTitleView.setText(mValues.get(position).getName());
         holder.mDescriptionView.setText(mValues.get(position).getDescription());
-        Glide.with(holder.itemView.getContext())
-                .load(Uri.parse(mValues.get(position).getImageUrl()))
-                .into(holder.mImage);
+        if (mValues.get(position).getImageUrl() != null){
+            Glide.with(holder.itemView.getContext())
+                    .load(Uri.parse(mValues.get(position).getImageUrl()))
+                    .into(holder.mImage);
+        }
         switch (mValues.get(position).getStatus()){
             case "ACTIVE": {
                 Glide.with(holder.itemView.getContext())

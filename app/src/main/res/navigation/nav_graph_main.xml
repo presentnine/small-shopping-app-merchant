@@ -92,7 +92,9 @@
         tools:layout="@layout/fragment_store_register_metadata_form" >
         <action
             android:id="@+id/action_storeRegisterMetadataFormFragment_to_storeRegisterDoneFragment"
-            app:destination="@id/storeRegisterDoneFragment" />
+            app:destination="@id/storeRegisterDoneFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/storeRegisterDoneFragment"
