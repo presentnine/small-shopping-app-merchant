@@ -126,11 +126,12 @@
             android:id="@+id/action_storeManagementFragment_to_pointManageFragment"
             app:destination="@id/pointManageFragment" />
         <action
-            android:id="@+id/action_storeManagementFragment_to_reviewListFragment"
-            app:destination="@id/reviewListFragment" />
-        <action
             android:id="@+id/action_storeManagementFragment_to_boardListFragment"
             app:destination="@id/boardListFragment" />
+        <argument
+            android:name="storeId"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/itemListFragment"

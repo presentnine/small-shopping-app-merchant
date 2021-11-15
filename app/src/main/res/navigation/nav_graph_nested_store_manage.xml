@@ -9,5 +9,10 @@
         android:id="@+id/nestedStoreConsoleFragment"
         android:name="com.sososhopping.merchant.store.manage.view.NestedStoreConsoleFragment"
         android:label="fragment_nested_store_console"
-        tools:layout="@layout/fragment_nested_store_console" />
+        tools:layout="@layout/fragment_nested_store_console" >
+        <argument
+            android:name="storeId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>
