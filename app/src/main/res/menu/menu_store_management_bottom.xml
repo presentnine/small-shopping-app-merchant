@@ -3,12 +3,12 @@
     <item
         android:id="@+id/manageConsole"
         android:icon="@drawable/ic_baseline_breakfast_dining_24"
-        android:title="@string/main_list" />
+        android:title="점포 관리" />
 
     <item
         android:id="@+id/manageChat"
         android:icon="@drawable/ic_baseline_chat_24"
-        android:title="@string/main_settings" />
+        android:title="채팅" />
 
     <item
         android:id="@+id/manageSchedule"
