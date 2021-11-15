@@ -2,13 +2,24 @@ package com.sososhopping.merchant.point.view;
 
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sososhopping.merchant.MainActivity;
 import com.sososhopping.merchant.R;
+import com.sososhopping.merchant.databinding.FragmentPointManageBinding;
+import com.sososhopping.merchant.point.dto.PointRuleResponseDto;
+import com.sososhopping.merchant.point.repository.PointRepository;
+import com.sososhopping.merchant.point.viewmodel.PointInfoViewModel;
+import com.sososhopping.merchant.point.viewmodel.PointManageViewModel;
+
+import java.util.function.Consumer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,14 +28,11 @@ import com.sososhopping.merchant.R;
  */
 public class PointManageFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String STOREID = "storeId";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private int storeId;
+
+    FragmentPointManageBinding binding;
 
     public PointManageFragment() {
         // Required empty public constructor
@@ -34,16 +42,13 @@ public class PointManageFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment PointManageFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PointManageFragment newInstance(String param1, String param2) {
+    public static PointManageFragment newInstance(int storeId) {
         PointManageFragment fragment = new PointManageFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(STOREID, storeId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,15 +57,41 @@ public class PointManageFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            storeId = getArguments().getInt(STOREID);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_point_manage, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_point_manage, container, false);
+        PointManageViewModel viewModel = new ViewModelProvider(requireActivity()).get(PointManageViewModel.class);
+        binding.setPointManageViewModel(viewModel);
+
+        Consumer<PointRuleResponseDto> onPointRuleChecked = this::onPointRuleChecked;
+        PointRepository.getInstance().requestPointRule(((MainActivity)getActivity()).getLoginToken(), storeId, onPointRuleChecked);
+
+        binding.pointHandleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt(STOREID, storeId);
+                Navigation.findNavController(v).navigate(R.id.action_pointManageFragment_to_pointFormDialog, bundle);
+            }
+        });
+
+        binding.pointRuleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.requestUpdate(((MainActivity)getActivity()).getLoginToken(), storeId);
+            }
+        });
+
+        return binding.getRoot();
+    }
+
+    private void onPointRuleChecked(PointRuleResponseDto dto) {
+        binding.enablePoint.setChecked(dto.isPointPolicyStatus());
+        binding.signupFormEmailLayout.getEditText().setText(Double.toString(dto.getSaveRate()));
     }
 }

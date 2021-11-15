@@ -34,7 +34,6 @@ public class NestedStoreConsoleFragment extends Fragment {
      *
      * @return A new instance of fragment NestedStoreConsoleFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static NestedStoreConsoleFragment newInstance(int storeId) {
         NestedStoreConsoleFragment fragment = new NestedStoreConsoleFragment();
         Bundle args = new Bundle();
@@ -63,6 +62,15 @@ public class NestedStoreConsoleFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putInt(STOREID, storeId);
                 NavHostFragment.findNavController(getParentFragment().getParentFragment()).navigate(R.id.action_storeManagementFragment_to_itemListFragment, bundle);
+            }
+        });
+
+        binding.pointLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt(STOREID, storeId);
+                NavHostFragment.findNavController(getParentFragment().getParentFragment()).navigate(R.id.action_storeManagementFragment_to_pointManageFragment, bundle);
             }
         });
 
