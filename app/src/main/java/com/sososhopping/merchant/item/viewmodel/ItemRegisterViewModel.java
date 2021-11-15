@@ -46,9 +46,9 @@ public class ItemRegisterViewModel extends ViewModel {
         this.bitmap.setValue(bitmap);
     }
 
-    public void requestRegister(String token, int storeId) {
+    public void requestRegister(String token, int storeId, Runnable onSuccess) {
         System.out.println(this.name.getValue());
-        ItemRepository.getInstance().requestRegisterItem(token, storeId, this.toDto(), this.bitmap.getValue());
+        ItemRepository.getInstance().requestRegisterItem(token, storeId, this.toDto(), this.bitmap.getValue(), onSuccess);
     }
 
     private ItemRegisterRequestDto toDto() {

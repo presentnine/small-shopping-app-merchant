@@ -64,12 +64,13 @@ public class ItemRepository {
         });
     }
 
-    public void requestRegisterItem(String token, int storeId, ItemRegisterRequestDto dto, Bitmap bitmap){
+    public void requestRegisterItem(String token, int storeId, ItemRegisterRequestDto dto, Bitmap bitmap, Runnable onSuccess){
         shopListService.requestRegisterItem(token, storeId, MultipartBody.Part.createFormData("dto", "dto", RequestBody.create(MediaType.parse("application/json"), new GsonBuilder().create().toJson(dto))), MultipartBody.Part.createFormData("img", "image.jpg", new BitmapRequestBody(bitmap))).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 System.out.println(response.code());
                 System.out.println("success");
+                onSuccess.run();
             }
 
             @Override
