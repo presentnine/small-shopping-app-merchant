@@ -1,5 +1,6 @@
 package com.sososhopping.merchant.store.manage.view;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -31,6 +32,8 @@ public class NestedStoreConsoleFragment extends Fragment {
 
     FragmentNestedStoreConsoleBinding binding;
 
+    Resources resources;
+
     public NestedStoreConsoleFragment() {
         // Required empty public constructor
     }
@@ -55,6 +58,7 @@ public class NestedStoreConsoleFragment extends Fragment {
         if (getArguments() != null) {
             storeId = getArguments().getInt(STOREID);
         }
+        resources = getResources();
     }
 
     @Override
@@ -100,10 +104,10 @@ public class NestedStoreConsoleFragment extends Fragment {
         boolean result = dto.isBusinessStatus();
 
         if (result) {
-            binding.storeOpenImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_pause_24));
+            binding.storeOpenImg.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_pause_24));
             binding.storeOpenText.setText("영업 중지");
         } else {
-            binding.storeOpenImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_play_arrow_24));
+            binding.storeOpenImg.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_play_arrow_24));
             binding.storeOpenText.setText("영업 재개");
         }
     }
