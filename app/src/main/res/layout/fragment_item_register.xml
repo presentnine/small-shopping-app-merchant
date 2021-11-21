@@ -6,7 +6,7 @@
     <data>
         <variable
             name="itemRegisterViewModel"
-            type="com.sososhopping.merchant.item.viewmodel.ItemRegisterViewModel" />
+            type="com.sososhopping.merchant.viewmodel.ItemRegisterViewModel" />
     </data>
 
 
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
-        tools:context=".account.signup.view.SignupFormFragment">
+        tools:context=".view.fragment.ItemRegisterFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/frameLayout2"

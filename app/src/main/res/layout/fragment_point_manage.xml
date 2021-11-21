@@ -6,20 +6,20 @@
     <data>
         <variable
             name="pointManageViewModel"
-            type="com.sososhopping.merchant.point.viewmodel.PointManageViewModel" />
+            type="com.sososhopping.merchant.viewmodel.PointRuleViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
-        tools:context=".account.signup.view.SignupFormFragment">
+        tools:context=".view.fragment.PointManageFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/frameLayout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".store.manage.view.NestedStoreConsoleFragment">
+            tools:context=".model.store.manage.view.NestedStoreConsoleFragment">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/shopListToolbar"

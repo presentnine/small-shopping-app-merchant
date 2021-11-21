@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.sososhopping.merchant.start.StartFragment"
+        android:name="com.sososhopping.merchant.view.fragment.StartFragment"
         android:label="fragment_start"
         tools:layout="@layout/fragment_start" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <dialog
         android:id="@+id/networkErrorDialog"
-        android:name="com.sososhopping.merchant.error.server.view.NetworkErrorDialog"
+        android:name="com.sososhopping.merchant.view.dialog.NetworkErrorDialog"
         android:label="dialog_network_error"
         tools:layout="@layout/dialog_network_error" />
     <action
@@ -27,7 +27,7 @@
         app:destination="@id/networkErrorDialog" />
     <fragment
         android:id="@+id/signupFormFragment"
-        android:name="com.sososhopping.merchant.account.signup.view.SignupFormFragment"
+        android:name="com.sososhopping.merchant.view.fragment.SignupFormFragment"
         android:label="fragment_signup_form"
         tools:layout="@layout/fragment_signup_form" >
         <action
@@ -38,12 +38,12 @@
     </fragment>
     <fragment
         android:id="@+id/signupDoneFragment"
-        android:name="com.sososhopping.merchant.account.signup.view.SignupDoneFragment"
+        android:name="com.sososhopping.merchant.view.fragment.SignupDoneFragment"
         android:label="fragment_signup_done"
         tools:layout="@layout/fragment_signup_done" />
     <dialog
         android:id="@+id/loginDialog"
-        android:name="com.sososhopping.merchant.account.login.view.LoginDialog"
+        android:name="com.sososhopping.merchant.view.dialog.LoginDialog"
         android:label="login_dialog"
         tools:layout="@layout/dialog_login" >
         <action
@@ -54,7 +54,7 @@
     </dialog>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.sososhopping.merchant.main.view.MainFragment"
+        android:name="com.sososhopping.merchant.view.fragment.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -78,7 +78,7 @@
     </fragment>
     <fragment
         android:id="@+id/storeRegisterBasicFormFragment"
-        android:name="com.sososhopping.merchant.store.register.view.StoreRegisterBasicFormFragment"
+        android:name="com.sososhopping.merchant.view.fragment.StoreRegisterBasicFormFragment"
         android:label="fragment_store_register_basic_form"
         tools:layout="@layout/fragment_store_register_basic_form" >
         <action
@@ -87,7 +87,7 @@
     </fragment>
     <fragment
         android:id="@+id/storeRegisterMetadataFormFragment"
-        android:name="com.sososhopping.merchant.store.register.view.StoreRegisterMetadataFormFragment"
+        android:name="com.sososhopping.merchant.view.fragment.StoreRegisterMetadataFormFragment"
         android:label="fragment_store_register_metadata_form"
         tools:layout="@layout/fragment_store_register_metadata_form" >
         <action
@@ -98,27 +98,27 @@
     </fragment>
     <fragment
         android:id="@+id/storeRegisterDoneFragment"
-        android:name="com.sososhopping.merchant.store.register.view.StoreRegisterDoneFragment"
+        android:name="com.sososhopping.merchant.view.fragment.StoreRegisteredFragment"
         android:label="fragment_store_register_done"
         tools:layout="@layout/fragment_store_register_done" />
     <fragment
         android:id="@+id/storeRegisterPendingFragment"
-        android:name="com.sososhopping.merchant.store.manage.view.StoreRegisterPendingFragment"
+        android:name="com.sososhopping.merchant.view.fragment.StorePendingFragment"
         android:label="fragment_store_register_pending"
         tools:layout="@layout/fragment_store_register_pending" />
     <fragment
         android:id="@+id/storeRegisterRejectedFragment"
-        android:name="com.sososhopping.merchant.store.manage.view.StoreRegisterRejectedFragment"
+        android:name="com.sososhopping.merchant.view.fragment.StoreRejectedFragment"
         android:label="fragment_store_register_rejected"
         tools:layout="@layout/fragment_store_register_rejected" />
     <fragment
         android:id="@+id/storeRegisterDeniedFragment"
-        android:name="com.sososhopping.merchant.store.manage.view.StoreRegisterDeniedFragment"
+        android:name="com.sososhopping.merchant.view.fragment.StoreDeniedFragment"
         android:label="fragment_store_register_denied"
         tools:layout="@layout/fragment_store_register_denied" />
     <fragment
         android:id="@+id/storeManagementFragment"
-        android:name="com.sososhopping.merchant.store.manage.view.StoreManagementFragment"
+        android:name="com.sososhopping.merchant.view.fragment.StoreManagementFragment"
         android:label="fragment_store_management"
         tools:layout="@layout/fragment_store_management" >
         <action
@@ -137,15 +137,12 @@
     </fragment>
     <fragment
         android:id="@+id/itemListFragment"
-        android:name="com.sososhopping.merchant.item.view.ItemListFragment"
+        android:name="com.sososhopping.merchant.view.fragment.ItemListFragment"
         android:label="fragment_item_list"
         tools:layout="@layout/fragment_item_list" >
         <action
             android:id="@+id/action_itemListFragment_to_itemRegisterFragment"
             app:destination="@id/itemRegisterFragment" />
-        <action
-            android:id="@+id/action_itemListFragment_to_itemUpdateFragment"
-            app:destination="@id/itemUpdateFragment" />
         <argument
             android:name="storeId"
             app:argType="integer"
@@ -153,7 +150,7 @@
     </fragment>
     <fragment
         android:id="@+id/itemRegisterFragment"
-        android:name="com.sososhopping.merchant.item.view.ItemRegisterFragment"
+        android:name="com.sososhopping.merchant.view.fragment.ItemRegisterFragment"
         android:label="fragment_item_register"
         tools:layout="@layout/fragment_item_register" >
         <argument
@@ -162,44 +159,18 @@
             android:defaultValue="0" />
     </fragment>
     <fragment
-        android:id="@+id/itemUpdateFragment"
-        android:name="com.sososhopping.merchant.item.view.ItemUpdateFragment"
-        android:label="fragment_item_update"
-        tools:layout="@layout/fragment_item_update" />
-    <fragment
         android:id="@+id/pointManageFragment"
-        android:name="com.sososhopping.merchant.point.view.PointManageFragment"
+        android:name="com.sososhopping.merchant.view.fragment.PointManageFragment"
         android:label="fragment_point_manage"
-        tools:layout="@layout/fragment_point_manage" >
-        <action
-            android:id="@+id/action_pointManageFragment_to_pointFormDialog"
-            app:destination="@id/pointFormDialog" />
-    </fragment>
-    <dialog
-        android:id="@+id/pointFormDialog"
-        android:name="com.sososhopping.merchant.point.view.PointInfoFormDialog"
-        android:label="point_form_dialog"
-        tools:layout="@layout/dialog_point_basic_form" >
-        <action
-            android:id="@+id/action_pointFormDialog_to_pointCheckDialog"
-            app:destination="@id/pointCheckDialog" />
-    </dialog>
-    <dialog
-        android:id="@+id/pointCheckDialog"
-        android:name="com.sososhopping.merchant.point.view.PointCheckDialog"
-        android:label="point_check_dialog"
-        tools:layout="@layout/dialog_point_check" />
+        tools:layout="@layout/fragment_point_manage" />
     <fragment
         android:id="@+id/boardListFragment"
-        android:name="com.sososhopping.merchant.board.view.BoardListFragment"
+        android:name="com.sososhopping.merchant.view.fragment.BoardListFragment"
         android:label="fragment_board_list"
         tools:layout="@layout/fragment_board_list" >
         <action
             android:id="@+id/action_boardListFragment_to_boardRegisterFragment"
             app:destination="@id/boardRegisterFragment" />
-        <action
-            android:id="@+id/action_boardListFragment_to_boardUpdateFragment"
-            app:destination="@id/boardUpdateFragment" />
         <argument
             android:name="storeId"
             app:argType="integer"
@@ -207,13 +178,8 @@
     </fragment>
     <fragment
         android:id="@+id/boardRegisterFragment"
-        android:name="com.sososhopping.merchant.board.view.BoardRegisterFragment"
+        android:name="com.sososhopping.merchant.view.fragment.BoardRegisterFragment"
         android:label="fragment_board_register"
         tools:layout="@layout/fragment_board_register" />
-    <fragment
-        android:id="@+id/boardUpdateFragment"
-        android:name="com.sososhopping.merchant.board.view.BoardUpdateFragment"
-        android:label="fragment_board_update"
-        tools:layout="@layout/fragment_board_update" />
 
 </navigation>
