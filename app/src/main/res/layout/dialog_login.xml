@@ -6,14 +6,14 @@
     <data>
         <variable
             name="loginViewModel"
-            type="com.sososhopping.merchant.account.login.viewmodel.LoginViewModel" />
+            type="com.sososhopping.merchant.viewmodel.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="24dp"
-        tools:context=".account.login.view.LoginDialog">
+        tools:context=".view.dialog.LoginDialog">
 
         <TextView
             android:id="@+id/loginTitle"

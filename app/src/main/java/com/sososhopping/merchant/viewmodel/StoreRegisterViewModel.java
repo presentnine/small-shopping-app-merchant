@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 import com.sososhopping.merchant.model.store.dto.request.StoreBusinessDaysDto;
 import com.sososhopping.merchant.model.store.dto.request.StoreMetadataDto;
 import com.sososhopping.merchant.model.store.dto.request.StoreRegisterRequestDto;
+import com.sososhopping.merchant.model.store.repository.StoreRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -228,6 +229,11 @@ public class StoreRegisterViewModel extends ViewModel {
     public MutableLiveData<String> getDetailedAddress() {
         return detailedAddress;
     }
+
+    public void requestRegister(String token, Runnable onSuccess, Runnable onError) {
+        StoreRepository.getInstance().requestRegister(token, bitmap.getValue(), toDto(), onSuccess, onError);
+    }
+
 
     private StoreRegisterRequestDto toDto() {
         return new StoreRegisterRequestDto(

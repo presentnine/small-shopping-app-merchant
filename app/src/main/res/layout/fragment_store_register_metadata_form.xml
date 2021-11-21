@@ -6,14 +6,14 @@
     <data>
         <variable
             name="storeRegisterViewModel"
-            type="com.sososhopping.merchant.store.register.viewmodel.StoreRegisterViewModel" />
+            type="com.sososhopping.merchant.viewmodel.StoreRegisterViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
-        tools:context=".store.register.view.StoreRegisterMetadataFormFragment">
+        tools:context=".view.fragment.StoreRegisterMetadataFormFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

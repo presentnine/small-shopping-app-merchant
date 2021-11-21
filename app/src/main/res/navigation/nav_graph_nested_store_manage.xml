@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nestedStoreConsoleFragment"
-        android:name="com.sososhopping.merchant.store.manage.view.NestedStoreConsoleFragment"
+        android:name="com.sososhopping.merchant.view.fragment.NestedStoreConsoleFragment"
         android:label="fragment_nested_store_console"
         tools:layout="@layout/fragment_nested_store_console" >
         <argument

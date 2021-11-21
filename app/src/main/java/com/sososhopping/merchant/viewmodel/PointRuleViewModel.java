@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.sososhopping.merchant.model.point.dto.request.PointRuleRequestDto;
+import com.sososhopping.merchant.model.point.repository.PointRepository;
 
 public class PointRuleViewModel extends ViewModel {
 
@@ -24,6 +25,10 @@ public class PointRuleViewModel extends ViewModel {
 
     public void setPointRate(double pointRate) {
         this.pointRate.setValue(Double.toString(pointRate));
+    }
+
+    public void requestUpdate(String token, int storeId, Runnable onError){
+        PointRepository.getInstance().requestPointRuleUpdate(token, storeId, this.toDto(), onError);
     }
 
     private PointRuleRequestDto toDto() {

@@ -3,10 +3,12 @@ package com.sososhopping.merchant.viewmodel;
 import android.graphics.Bitmap;
 
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.sososhopping.merchant.model.item.dto.request.ItemRegisterRequestDto;
+import com.sososhopping.merchant.model.item.repository.ItemRepository;
 
-public class ItemRegisterViewModel {
+public class ItemRegisterViewModel extends ViewModel {
 
     MutableLiveData<Bitmap> bitmap = new MutableLiveData<>();
 
@@ -43,6 +45,11 @@ public class ItemRegisterViewModel {
 
     public void setBitmap(Bitmap bitmap) {
         this.bitmap.setValue(bitmap);
+    }
+
+    public void requestRegister(String token, int storeId, Runnable onSuccess, Runnable onError) {
+        System.out.println(this.name.getValue());
+        ItemRepository.getInstance().requestRegisterItem(token, storeId, this.toDto(), this.bitmap.getValue(), onSuccess, onError);
     }
 
     private ItemRegisterRequestDto toDto() {

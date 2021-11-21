@@ -6,7 +6,7 @@
         android:id="@+id/frameLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".store.manage.view.NestedStoreConsoleFragment">
+        tools:context=".view.fragment.NestedStoreConsoleFragment">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/shopListToolbar"
