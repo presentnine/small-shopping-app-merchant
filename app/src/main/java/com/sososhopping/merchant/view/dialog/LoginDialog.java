@@ -47,7 +47,7 @@ public class LoginDialog extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.dialog_login, container, true);
 
-        LoginViewModel viewModel = new ViewModelProvider(requireActivity()).get(LoginViewModel.class);
+        LoginViewModel viewModel = new ViewModelProvider(getViewModelStore(), new ViewModelProvider.NewInstanceFactory()).get(LoginViewModel.class);
         binding.setLoginViewModel(viewModel);
 
         BiConsumer<LoginRequestDto, LoginResponseDto> onSuccess = this::onLoggedIn;
