@@ -134,6 +134,9 @@
             android:name="storeId"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_storeManagementFragment_to_reviewListFragment"
+            app:destination="@id/reviewListFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemListFragment"
@@ -181,5 +184,15 @@
         android:name="com.sososhopping.merchant.view.fragment.BoardRegisterFragment"
         android:label="fragment_board_register"
         tools:layout="@layout/fragment_board_register" />
+    <fragment
+        android:id="@+id/reviewListFragment"
+        android:name="com.sososhopping.merchant.view.fragment.ReviewListFragment"
+        android:label="fragment_review_list"
+        tools:layout="@layout/fragment_review_list" >
+        <argument
+            android:name="storeId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 
 </navigation>

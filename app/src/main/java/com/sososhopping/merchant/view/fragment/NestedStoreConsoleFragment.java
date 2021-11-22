@@ -95,6 +95,15 @@ public class NestedStoreConsoleFragment extends Fragment {
             }
         });
 
+        binding.reviewLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt(STOREID, storeId);
+                NavHostFragment.findNavController(getParentFragment().getParentFragment()).navigate(R.id.action_storeManagementFragment_to_reviewListFragment, bundle);
+            }
+        });
+
         return binding.getRoot();
     }
 
