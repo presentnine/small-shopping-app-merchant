@@ -16,7 +16,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -57,7 +59,11 @@ public class StoreRegisterBasicFormFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_store_register_basic_form, container, false);
 
-        StoreRegisterViewModel viewModel = new ViewModelProvider(requireActivity()).get(StoreRegisterViewModel.class);
+        NavController navController = NavHostFragment.findNavController(this);
+
+        ViewModelProvider viewModelProvider = new ViewModelProvider(navController.getViewModelStoreOwner(R.id.navigationStoreRegister));
+
+        StoreRegisterViewModel viewModel = viewModelProvider.get(StoreRegisterViewModel.class);
         binding.setStoreRegisterViewModel(viewModel);
 
         viewModel.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.default_img));
@@ -123,7 +129,6 @@ public class StoreRegisterBasicFormFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 viewModel.setCategory((String)parent.getSelectedItem());
-                System.out.println(viewModel.getCategory().getValue());
             }
 
             @Override

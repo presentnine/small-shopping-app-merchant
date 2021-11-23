@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
@@ -46,9 +47,12 @@ public class StoreRegisterMetadataFormFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_store_register_metadata_form, container, false);
 
-        StoreRegisterViewModel viewModel = new ViewModelProvider(requireActivity()).get(StoreRegisterViewModel.class);
+        NavController navController = NavHostFragment.findNavController(this);
+
+        ViewModelProvider viewModelProvider = new ViewModelProvider(navController.getViewModelStoreOwner(R.id.navigationStoreRegister));
+
+        StoreRegisterViewModel viewModel = viewModelProvider.get(StoreRegisterViewModel.class);
         binding.setStoreRegisterViewModel(viewModel);
-        binding.setLifecycleOwner(this.getViewLifecycleOwner());
 
         Runnable onSuccess = this::navigateToNext;
         Runnable onError = this::onNetworkError;

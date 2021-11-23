@@ -62,7 +62,7 @@
             app:destination="@id/startFragment" />
         <action
             android:id="@+id/action_mainFragment_to_storeRegisterBasicFormFragment"
-            app:destination="@id/storeRegisterBasicFormFragment" />
+            app:destination="@id/navigationStoreRegister" />
         <action
             android:id="@+id/action_mainFragment_to_storeRegisterDeniedFragment"
             app:destination="@id/storeRegisterDeniedFragment" />
@@ -76,31 +76,6 @@
             android:id="@+id/action_mainFragment_to_storeManagementFragment"
             app:destination="@id/storeManagementFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/storeRegisterBasicFormFragment"
-        android:name="com.sososhopping.merchant.view.fragment.StoreRegisterBasicFormFragment"
-        android:label="fragment_store_register_basic_form"
-        tools:layout="@layout/fragment_store_register_basic_form" >
-        <action
-            android:id="@+id/action_storeRegisterBasicFormFragment_to_storeRegisterMetadataFormFragment"
-            app:destination="@id/storeRegisterMetadataFormFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/storeRegisterMetadataFormFragment"
-        android:name="com.sososhopping.merchant.view.fragment.StoreRegisterMetadataFormFragment"
-        android:label="fragment_store_register_metadata_form"
-        tools:layout="@layout/fragment_store_register_metadata_form" >
-        <action
-            android:id="@+id/action_storeRegisterMetadataFormFragment_to_storeRegisterDoneFragment"
-            app:destination="@id/storeRegisterDoneFragment"
-            app:popUpTo="@id/mainFragment"
-            app:popUpToInclusive="false" />
-    </fragment>
-    <fragment
-        android:id="@+id/storeRegisterDoneFragment"
-        android:name="com.sososhopping.merchant.view.fragment.StoreRegisteredFragment"
-        android:label="fragment_store_register_done"
-        tools:layout="@layout/fragment_store_register_done" />
     <fragment
         android:id="@+id/storeRegisterPendingFragment"
         android:name="com.sososhopping.merchant.view.fragment.StorePendingFragment"
@@ -194,5 +169,33 @@
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
+    <navigation android:id="@+id/navigationStoreRegister"
+        app:startDestination="@id/storeRegisterBasicFormFragment">
+        <fragment
+            android:id="@+id/storeRegisterDoneFragment"
+            android:name="com.sososhopping.merchant.view.fragment.StoreRegisteredFragment"
+            android:label="fragment_store_register_done"
+            tools:layout="@layout/fragment_store_register_done" />
+        <fragment
+            android:id="@+id/storeRegisterMetadataFormFragment"
+            android:name="com.sososhopping.merchant.view.fragment.StoreRegisterMetadataFormFragment"
+            android:label="fragment_store_register_metadata_form"
+            tools:layout="@layout/fragment_store_register_metadata_form">
+            <action
+                android:id="@+id/action_storeRegisterMetadataFormFragment_to_storeRegisterDoneFragment"
+                app:destination="@id/storeRegisterDoneFragment"
+                app:popUpTo="@id/mainFragment"
+                app:popUpToInclusive="false" />
+        </fragment>
+        <fragment
+            android:id="@+id/storeRegisterBasicFormFragment"
+            android:name="com.sososhopping.merchant.view.fragment.StoreRegisterBasicFormFragment"
+            android:label="fragment_store_register_basic_form"
+            tools:layout="@layout/fragment_store_register_basic_form">
+            <action
+                android:id="@+id/action_storeRegisterBasicFormFragment_to_storeRegisterMetadataFormFragment"
+                app:destination="@id/storeRegisterMetadataFormFragment" />
+        </fragment>
+    </navigation>
 
 </navigation>
