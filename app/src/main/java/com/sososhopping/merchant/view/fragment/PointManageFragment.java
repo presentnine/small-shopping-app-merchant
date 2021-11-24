@@ -67,6 +67,15 @@ public class PointManageFragment extends Fragment {
             }
         });
 
+        binding.pointHandleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt(STOREID, storeId);
+                Navigation.findNavController(v).navigate(R.id.action_pointManageFragment_to_pointFormDialog, bundle);
+            }
+        });
+
         return binding.getRoot();
     }
 
