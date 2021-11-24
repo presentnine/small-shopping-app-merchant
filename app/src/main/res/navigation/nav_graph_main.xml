@@ -140,7 +140,11 @@
         android:id="@+id/pointManageFragment"
         android:name="com.sososhopping.merchant.view.fragment.PointManageFragment"
         android:label="fragment_point_manage"
-        tools:layout="@layout/fragment_point_manage" />
+        tools:layout="@layout/fragment_point_manage" >
+        <action
+            android:id="@+id/action_pointManageFragment_to_pointFormDialog"
+            app:destination="@id/navigation" />
+    </fragment>
     <fragment
         android:id="@+id/boardListFragment"
         android:name="com.sososhopping.merchant.view.fragment.BoardListFragment"
@@ -169,6 +173,7 @@
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
+<<<<<<< HEAD
     <navigation android:id="@+id/navigationStoreRegister"
         app:startDestination="@id/storeRegisterBasicFormFragment">
         <fragment
@@ -198,4 +203,41 @@
         </fragment>
     </navigation>
 
+=======
+    <navigation android:id="@+id/navigation"
+        app:startDestination="@id/pointFormDialog">
+        <dialog
+            android:id="@+id/pointCheckDialog"
+            android:name="com.sososhopping.merchant.view.dialog.PointCheckDialog"
+            android:label="point_check_dialog"
+            tools:layout="@layout/dialog_point_check">
+            <argument
+                android:name="storeId"
+                android:defaultValue="0"
+                app:argType="integer" />
+            <argument
+                android:name="userName"
+                app:argType="string" />
+            <argument
+                android:name="userPoint"
+                app:argType="integer"
+                android:defaultValue="0" />
+        </dialog>
+        <dialog
+            android:id="@+id/pointFormDialog"
+            android:name="com.sososhopping.merchant.view.dialog.PointFormDialog"
+            android:label="point_form_dialog"
+            tools:layout="@layout/dialog_point_form">
+            <action
+                android:id="@+id/action_pointFormDialog_to_pointCheckDialog"
+                app:destination="@id/pointCheckDialog"
+                app:popUpTo="@id/pointManageFragment"
+                app:popUpToInclusive="false" />
+            <argument
+                android:name="storeId"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </dialog>
+    </navigation>
+>>>>>>> feature/point-manual-manage
 </navigation>
