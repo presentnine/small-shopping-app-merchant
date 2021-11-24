@@ -173,7 +173,6 @@
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
-<<<<<<< HEAD
     <navigation android:id="@+id/navigationStoreRegister"
         app:startDestination="@id/storeRegisterBasicFormFragment">
         <fragment
@@ -202,8 +201,6 @@
                 app:destination="@id/storeRegisterMetadataFormFragment" />
         </fragment>
     </navigation>
-
-=======
     <navigation android:id="@+id/navigation"
         app:startDestination="@id/pointFormDialog">
         <dialog
@@ -239,5 +236,4 @@
                 app:argType="integer" />
         </dialog>
     </navigation>
->>>>>>> feature/point-manual-manage
 </navigation>
