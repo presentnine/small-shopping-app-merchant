@@ -12,7 +12,7 @@ public class AccountingRegisterViewModel extends ViewModel {
     private final MutableLiveData<String> dateTime = new MutableLiveData<>();
     private final MutableLiveData<String> amount = new MutableLiveData<>();
 
-    private final MutableLiveData<Boolean> isSave = new MutableLiveData<>(true);
+    private final MutableLiveData<Boolean> isIncome = new MutableLiveData<>(true);
 
     public MutableLiveData<String> getDescription() {
         return description;
@@ -26,13 +26,17 @@ public class AccountingRegisterViewModel extends ViewModel {
         return amount;
     }
 
+    public void setIsIncome(boolean isIncome) {
+        this.isIncome.setValue(isIncome);
+    }
+
     public void requestRegister(String token, int storeId, Runnable onSuccess, Runnable onError) {
         AccountingRepository.getInstance().requestAccountingRegister(token, storeId, toDto(), onSuccess, onError);
     }
 
     private AccountingRegisterRequestDto toDto() {
         return new AccountingRegisterRequestDto(dateTime.getValue(),
-                isSave.getValue() ? Integer.parseInt(amount.getValue()) : Integer.parseInt(amount.getValue()) * -1,
+                isIncome.getValue() ? Integer.parseInt(amount.getValue()) : Integer.parseInt(amount.getValue()) * -1,
                 description.getValue());
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -62,6 +63,14 @@ public class AccountingFormDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 viewModel.requestRegister(((MainActivity)getActivity()).getLoginToken(), storeId, onSuccess, onError);
+            }
+        });
+
+        binding.type.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.expenditure) viewModel.setIsIncome(false);
+                else viewModel.setIsIncome(true);
             }
         });
 
