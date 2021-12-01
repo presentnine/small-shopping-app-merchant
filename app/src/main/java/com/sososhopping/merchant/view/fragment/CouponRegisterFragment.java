@@ -2,15 +2,18 @@ package com.sososhopping.merchant.view.fragment;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
+import com.sososhopping.merchant.MainActivity;
 import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.FragmentCouponRegisterBinding;
 import com.sososhopping.merchant.viewmodel.BoardRegisterViewModel;
@@ -53,6 +56,13 @@ public class CouponRegisterFragment extends Fragment {
         CouponRegisterViewModel viewModel = new ViewModelProvider(getViewModelStore(), new ViewModelProvider.NewInstanceFactory()).get(CouponRegisterViewModel.class);
         binding.setCouponReigsterViewModel(viewModel);
 
+        binding.shopListToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.couponRegister) viewModel.requestRegister(((MainActivity)getActivity()).getLoginToken(), storeId);
+                return true;
+            }
+        });
 
         binding.typeRadio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

@@ -4,8 +4,10 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.sososhopping.merchant.model.coupon.dto.request.CouponModifyRequestDto;
 import com.sososhopping.merchant.model.coupon.dto.request.CouponRegisterRequestDto;
 import com.sososhopping.merchant.model.coupon.dto.response.CouponListResponseDto;
+import com.sososhopping.merchant.model.coupon.dto.response.CouponModifyResponseDto;
 import com.sososhopping.merchant.model.coupon.service.CouponService;
 import com.sososhopping.merchant.util.retrofit.factory.ApiServiceFactory;
 
@@ -50,6 +52,34 @@ public class CouponRepository {
 
     public void requestRegister(String token, int storeId, CouponRegisterRequestDto dto) {
         service.requestCouponRegister(token, storeId, dto).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                System.out.println(response.code());
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                ;
+            }
+        });
+    }
+
+    public void requestCouponCheck(String token, int storeId, String userPhone, String couponCode){
+        service.requestCouponCheck(token, storeId, userPhone, couponCode).enqueue(new Callback<CouponModifyResponseDto>() {
+            @Override
+            public void onResponse(Call<CouponModifyResponseDto> call, Response<CouponModifyResponseDto> response) {
+                ;
+            }
+
+            @Override
+            public void onFailure(Call<CouponModifyResponseDto> call, Throwable t) {
+                ;
+            }
+        });
+    }
+
+    public void requestCouponModify(String token, int storeId, CouponModifyRequestDto dto) {
+        service.requestCouponModify(token, storeId, dto).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 ;

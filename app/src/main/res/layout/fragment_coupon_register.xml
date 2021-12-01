@@ -25,6 +25,7 @@
                 android:background="@drawable/background_bottom_stroke"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme"
+                app:menu="@menu/menu_coupon_register_toolbar"
                 app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -319,7 +320,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:text="@={couponReigsterViewModel.couponIssuedStart}"
                     android:hint="쿠폰 발급 시작일" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -341,7 +342,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:text="@={couponReigsterViewModel.couponIssuedEnd}"
                     android:hint="쿠폰 발급 종료일" />
             </com.google.android.material.textfield.TextInputLayout>

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CouponListResponseDto {
 
-    @SerializedName("expected")
+    @SerializedName("excepted")
     List<CouponList> expected;
     @SerializedName("being")
     List<CouponList> being;

@@ -1,5 +1,6 @@
 package com.sososhopping.merchant.viewmodel;
 
+import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -7,49 +8,49 @@ import com.sososhopping.merchant.model.coupon.dto.request.CouponRegisterRequestD
 import com.sososhopping.merchant.model.coupon.repository.CouponRepository;
 
 public class CouponRegisterViewModel extends ViewModel {
-    MutableLiveData<String> couponType = new MutableLiveData<>("FIX");
-    MutableLiveData<String> couponName = new MutableLiveData<>();
-    MutableLiveData<String> couponAmount = new MutableLiveData<>();
-    MutableLiveData<String> couponMinPrice = new MutableLiveData<>();
-    MutableLiveData<String> couponExpiry = new MutableLiveData<>();
-    MutableLiveData<String> couponQuantity = new MutableLiveData<>();
-    MutableLiveData<String> couponIssuedStart = new MutableLiveData<>();
-    MutableLiveData<String> couponIssuedEnd = new MutableLiveData<>();
+    ObservableField<String> couponType = new ObservableField<>("FIX");
+    ObservableField<String> couponName = new ObservableField<>();
+    ObservableField<String> couponAmount = new ObservableField<>();
+    ObservableField<String> couponMinPrice = new ObservableField<>();
+    ObservableField<String> couponExpiry = new ObservableField<>();
+    ObservableField<String> couponQuantity = new ObservableField<>();
+    ObservableField<String> couponIssuedStart = new ObservableField<>();
+    ObservableField<String> couponIssuedEnd = new ObservableField<>();
 
-    public MutableLiveData<String> getCouponType() {
+    public ObservableField<String> getCouponType() {
         return couponType;
     }
 
-    public MutableLiveData<String> getCouponName() {
+    public ObservableField<String> getCouponName() {
         return couponName;
     }
 
-    public MutableLiveData<String> getCouponAmount() {
+    public ObservableField<String> getCouponAmount() {
         return couponAmount;
     }
 
-    public MutableLiveData<String> getCouponMinPrice() {
+    public ObservableField<String> getCouponMinPrice() {
         return couponMinPrice;
     }
 
-    public MutableLiveData<String> getCouponExpiry() {
+    public ObservableField<String> getCouponExpiry() {
         return couponExpiry;
     }
 
-    public MutableLiveData<String> getCouponQuantity() {
+    public ObservableField<String> getCouponQuantity() {
         return couponQuantity;
     }
 
-    public MutableLiveData<String> getCouponIssuedStart() {
+    public ObservableField<String> getCouponIssuedStart() {
         return couponIssuedStart;
     }
 
-    public MutableLiveData<String> getCouponIssuedEnd() {
+    public ObservableField<String> getCouponIssuedEnd() {
         return couponIssuedEnd;
     }
 
     public void setCouponType(String couponType) {
-        this.couponType.setValue(couponType);
+        this.couponType.set(couponType);
     }
 
     public void requestRegister(String token, int storeId) {
@@ -58,15 +59,15 @@ public class CouponRegisterViewModel extends ViewModel {
 
     private CouponRegisterRequestDto toDto() {
         return new CouponRegisterRequestDto(
-                couponName.getValue(),
-                Integer.parseInt(couponQuantity.getValue()),
-                Integer.parseInt(couponMinPrice.getValue()),
-                couponIssuedStart.getValue(),
-                couponIssuedEnd.getValue(),
-                couponExpiry.getValue(),
-                couponType.getValue(),
-                couponType.getValue().equals("RATE") ? Double.parseDouble(couponAmount.getValue()) : 0,
-                couponType.getValue().equals("PRICE") ? Integer.parseInt(couponAmount.getValue()) : 0
+                couponName.get(),
+                Integer.parseInt(couponQuantity.get()),
+                Integer.parseInt(couponMinPrice.get()),
+                couponIssuedStart.get(),
+                couponIssuedEnd.get(),
+                couponExpiry.get(),
+                couponType.get(),
+                couponType.get().equals("RATE") ? Double.parseDouble(couponAmount.get()) : 0,
+                couponType.get().equals("FIX") ? Integer.parseInt(couponAmount.get()) : 0
         );
     }
 }
