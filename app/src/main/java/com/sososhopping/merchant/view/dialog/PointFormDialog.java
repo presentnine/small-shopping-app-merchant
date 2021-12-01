@@ -58,9 +58,10 @@ public class PointFormDialog extends DialogFragment {
 
         NavController navController = NavHostFragment.findNavController(this);
 
-        ViewModelProvider viewModelProvider = new ViewModelProvider(navController.getViewModelStoreOwner(R.id.navigation));
+        ViewModelProvider viewModelProvider = new ViewModelProvider(navController.getViewModelStoreOwner(R.id.navigationPoint));
 
         PointModifyViewModel viewModel = viewModelProvider.get(PointModifyViewModel.class);
+        binding.setPointModifyViewModel(viewModel);
 
         Consumer<PointModifyResponseDto> onSuccess = this::onSuccess;
         Runnable onFailed = this::onUserNotFound;

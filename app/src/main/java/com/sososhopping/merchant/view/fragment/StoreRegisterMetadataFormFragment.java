@@ -54,6 +54,8 @@ public class StoreRegisterMetadataFormFragment extends Fragment {
         StoreRegisterViewModel viewModel = viewModelProvider.get(StoreRegisterViewModel.class);
         binding.setStoreRegisterViewModel(viewModel);
 
+        System.out.println(viewModel.getName().getValue());
+
         Runnable onSuccess = this::navigateToNext;
         Runnable onError = this::onNetworkError;
 

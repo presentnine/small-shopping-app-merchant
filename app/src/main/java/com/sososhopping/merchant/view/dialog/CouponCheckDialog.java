@@ -16,31 +16,26 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.sososhopping.merchant.MainActivity;
 import com.sososhopping.merchant.R;
-import com.sososhopping.merchant.databinding.DialogPointCheckBinding;
+import com.sososhopping.merchant.databinding.DialogCouponCheckBinding;
+import com.sososhopping.merchant.viewmodel.CouponModifyViewModel;
 import com.sososhopping.merchant.viewmodel.PointModifyViewModel;
 
-public class PointCheckDialog extends DialogFragment {
+public class CouponCheckDialog extends DialogFragment {
 
     private static final String STOREID = "storeId";
-    private static final String USERNAME = "userName";
-    private static final String USERPOINT = "userPoint";
 
     private int storeId;
-    private String userName;
-    private int userPoint;
 
-    DialogPointCheckBinding binding;
+    DialogCouponCheckBinding binding;
 
-    public PointCheckDialog() {
+    public CouponCheckDialog() {
 
     }
 
-    public PointFormDialog newInstance() {
-        PointFormDialog dialog = new PointFormDialog();
+    public CouponCheckDialog newInstance() {
+        CouponCheckDialog dialog = new CouponCheckDialog();
         Bundle args = new Bundle();
         args.putInt(STOREID, storeId);
-        args.putString(USERNAME, userName);
-        args.putInt(USERPOINT, userPoint);
         dialog.setArguments(args);
         return dialog;
     }
@@ -50,34 +45,26 @@ public class PointCheckDialog extends DialogFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             storeId = getArguments().getInt(STOREID);
-            userName = getArguments().getString(USERNAME);
-            userPoint = getArguments().getInt(USERPOINT);
         }
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_point_check, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_coupon_check, container, false);
 
         NavController navController = NavHostFragment.findNavController(this);
 
-        ViewModelProvider viewModelProvider = new ViewModelProvider(navController.getViewModelStoreOwner(R.id.navigationPoint));
+        ViewModelProvider viewModelProvider = new ViewModelProvider(navController.getViewModelStoreOwner(R.id.navigationCoupon));
 
-        PointModifyViewModel viewModel = viewModelProvider.get(PointModifyViewModel.class);
+        CouponModifyViewModel viewModel = viewModelProvider.get(CouponModifyViewModel.class);
 
-        binding.setPointModifyViewModel(viewModel);
-
-        binding.usernameValue.setText(userName);
-        binding.currentPointValue.setText(Integer.toString(userPoint));
-
-        Runnable onSuccess = this::closeDialog;
-        Runnable onError = this::onNetworkError;
+        binding.setCouponModifyViewModel(viewModel);
 
         binding.loginLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.requestPointModify(((MainActivity)getActivity()).getLoginToken(), storeId, onSuccess, onError);
+                viewModel.requestCouponModify(((MainActivity)getActivity()).getLoginToken(), storeId);
             }
         });
 
@@ -91,13 +78,5 @@ public class PointCheckDialog extends DialogFragment {
         if (dialog != null) {
             dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
-    }
-
-    private void closeDialog() {
-        this.dismiss();
-    }
-
-    private void onNetworkError() {
-        NavHostFragment.findNavController(this).navigate(R.id.action_global_networkErrorDialog);
     }
 }

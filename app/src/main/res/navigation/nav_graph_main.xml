@@ -115,6 +115,9 @@
         <action
             android:id="@+id/action_storeManagementFragment_to_accountingFragment"
             app:destination="@id/accountingFragment" />
+        <action
+            android:id="@+id/action_storeManagementFragment_to_couponListFragment"
+            app:destination="@id/couponListFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemListFragment"
@@ -146,7 +149,7 @@
         tools:layout="@layout/fragment_point_manage" >
         <action
             android:id="@+id/action_pointManageFragment_to_pointFormDialog"
-            app:destination="@id/navigation" />
+            app:destination="@id/navigationPoint" />
     </fragment>
     <fragment
         android:id="@+id/boardListFragment"
@@ -204,7 +207,7 @@
                 app:destination="@id/storeRegisterMetadataFormFragment" />
         </fragment>
     </navigation>
-    <navigation android:id="@+id/navigation"
+    <navigation android:id="@+id/navigationPoint"
         app:startDestination="@id/pointFormDialog">
         <dialog
             android:id="@+id/pointCheckDialog"
@@ -262,4 +265,66 @@
             app:argType="integer"
             android:defaultValue="0" />
     </dialog>
+    <fragment
+        android:id="@+id/couponListFragment"
+        android:name="com.sososhopping.merchant.view.fragment.CouponListFragment"
+        android:label="fragment_coupon_list"
+        tools:layout="@layout/fragment_coupon_list" >
+        <action
+            android:id="@+id/action_couponListFragment_to_couponRegisterFragment"
+            app:destination="@id/couponRegisterFragment" />
+        <argument
+            android:name="storeId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_couponListFragment_to_couponFormDialog"
+            app:destination="@id/navigation" />
+    </fragment>
+    <fragment
+        android:id="@+id/couponRegisterFragment"
+        android:name="com.sososhopping.merchant.view.fragment.CouponRegisterFragment"
+        android:label="fragment_coupon_register"
+        tools:layout="@layout/fragment_coupon_register" >
+        <argument
+            android:name="storeId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_couponRegisterFragment_to_couponRegisteredFragment"
+            app:destination="@id/couponRegisteredFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/couponRegisteredFragment"
+        android:name="com.sososhopping.merchant.view.fragment.CouponRegisteredFragment"
+        android:label="fragment_coupon_registered"
+        tools:layout="@layout/fragment_coupon_registered" />
+    <navigation android:id="@+id/navigationCoupon"
+        app:startDestination="@id/couponFormDialog">
+        <dialog
+            android:id="@+id/couponCheckDialog"
+            android:name="com.sososhopping.merchant.view.dialog.CouponCheckDialog"
+            android:label="coupon_check_dialog"
+            tools:layout="@layout/dialog_coupon_check">
+            <argument
+                android:name="storeId"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </dialog>
+        <dialog
+            android:id="@+id/couponFormDialog"
+            android:name="com.sososhopping.merchant.view.dialog.CouponFormDialog"
+            android:label="coupon_form_dialog"
+            tools:layout="@layout/dialog_coupon_form">
+            <action
+                android:id="@+id/action_couponFormDialog_to_couponCheckDialog"
+                app:destination="@id/couponCheckDialog"
+                app:popUpTo="@id/couponListFragment"
+                app:popUpToInclusive="false" />
+            <argument
+                android:name="storeId"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </dialog>
+    </navigation>
 </navigation>

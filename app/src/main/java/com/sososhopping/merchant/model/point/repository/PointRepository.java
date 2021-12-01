@@ -68,10 +68,12 @@ public class PointRepository {
     }
 
     public void requestPointCheck(String token, int storeId, String userPhone, Consumer<PointModifyResponseDto> onSuccess, Runnable onFailed, Runnable onError) {
+        System.out.println(userPhone);
         service.requestPointCheck(token, storeId, userPhone).enqueue(new Callback<PointModifyResponseDto>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<PointModifyResponseDto> call, Response<PointModifyResponseDto> response) {
+                System.out.println(response.code());
                 if (response.code() == 200) onSuccess.accept(response.body());
                 else onFailed.run();
             }
