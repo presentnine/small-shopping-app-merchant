@@ -9,7 +9,7 @@ public class ReviewListResponseDto {
 
     @SerializedName("averageScore")
     double averageScore;
-    @SerializedName("count")
+    @SerializedName("size")
     int reviewCount;
     @SerializedName("reviews")
     List<ReviewList> reviewLists;

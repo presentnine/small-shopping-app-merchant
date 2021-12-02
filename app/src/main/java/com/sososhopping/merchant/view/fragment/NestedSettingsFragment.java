@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.NestedFragmentSettingsBinding;
@@ -33,6 +34,13 @@ public class NestedSettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.nested_fragment_settings, container, false);
+
+        binding.settingsQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(getParentFragment().getParentFragment()).navigate(R.id.action_mainFragment_to_questionDialog);
+            }
+        });
 
         return binding.getRoot();
     }

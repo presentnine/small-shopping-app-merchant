@@ -75,6 +75,9 @@
         <action
             android:id="@+id/action_mainFragment_to_storeManagementFragment"
             app:destination="@id/storeManagementFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_questionDialog"
+            app:destination="@id/questionDialog" />
     </fragment>
     <fragment
         android:id="@+id/storeRegisterPendingFragment"
@@ -118,6 +121,9 @@
         <action
             android:id="@+id/action_storeManagementFragment_to_couponListFragment"
             app:destination="@id/couponListFragment" />
+        <action
+            android:id="@+id/action_storeManagementFragment_to_orderCheckFragment"
+            app:destination="@id/orderCheckFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemListFragment"
@@ -332,4 +338,10 @@
         android:name="com.sososhopping.merchant.view.fragment.OrderCheckFragment"
         android:label="fragment_order_check"
         tools:layout="@layout/fragment_order_check" />
+    <dialog
+        android:id="@+id/questionDialog"
+        android:name="com.sososhopping.merchant.view.dialog.QuestionDialog"
+        android:label="question_dialog"
+        tools:layout="@layout/dialog_question"
+        />
 </navigation>

@@ -27,10 +27,12 @@ public class ReviewListRecyclerViewAdapter extends RecyclerView.Adapter<ReviewLi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mUsernameView.setText(holder.mItem.getUsername());
-        holder.mContentView.setText(holder.mItem.getContent());
-        holder.mCreatedAt.setText(holder.mItem.getCreatedAt());
-        holder.mRatingBar.setRating((float) (holder.mItem.getScore()));
+        if (holder.mItem != null) {
+            holder.mUsernameView.setText(holder.mItem.getUsername());
+            holder.mContentView.setText(holder.mItem.getContent());
+            holder.mCreatedAt.setText(holder.mItem.getCreatedAt());
+            holder.mRatingBar.setRating((float) (holder.mItem.getScore()));
+        }
     }
 
     @Override
