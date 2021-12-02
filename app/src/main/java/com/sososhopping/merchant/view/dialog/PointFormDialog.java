@@ -59,7 +59,7 @@ public class PointFormDialog extends DialogFragment {
 
         NavController navController = NavHostFragment.findNavController(this);
 
-        ViewModelProvider viewModelProvider = new ViewModelProvider(navController.getViewModelStoreOwner(R.id.navigationPoint));
+        ViewModelProvider viewModelProvider = new ViewModelProvider(requireParentFragment());
 
         PointModifyViewModel viewModel = viewModelProvider.get(PointModifyViewModel.class);
         binding.setPointModifyViewModel(viewModel);
