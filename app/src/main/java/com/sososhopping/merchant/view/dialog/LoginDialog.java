@@ -92,10 +92,12 @@ public class LoginDialog extends DialogFragment {
     private void onLoggedIn(LoginRequestDto requestDto, LoginResponseDto responseDto) {
         String id = requestDto.getEmail();
         String password = requestDto.getPassword();
-        String token = responseDto.getToken();
+        String authToken = responseDto.getToken();
+        String firebaseToken = responseDto.getFirebaseToken();
         SharedPreferenceManager.setString(getContext(), Constant.SHARED_PREFERENCE_KEY_ID, id);
         SharedPreferenceManager.setString(getContext(), Constant.SHARED_PREFERENCE_KEY_PASSWORD, password);
-        TokenStore.storeAuthToken(token);
+        TokenStore.storeAuthToken(authToken);
+        TokenStore.storeFirebaseToken(firebaseToken);
         navigateToMain();
     }
 
