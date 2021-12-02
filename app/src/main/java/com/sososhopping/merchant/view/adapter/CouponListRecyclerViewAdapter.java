@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.HeaderCouponListBinding;
 import com.sososhopping.merchant.databinding.ItemCouponListBinding;
 import com.sososhopping.merchant.model.coupon.entity.CouponList;
@@ -62,7 +63,7 @@ public class CouponListRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
                             count++;
                         }
                         notifyItemRangeRemoved(pos + 1, count);
-                        //itemController.btn_expand_toggle.setImageResource(R.drawable.circle_plus);
+                        headerViewHolder.mButton.setImageResource(R.drawable.ic_baseline_add_24);
                     } else {
                         int pos = mValues.indexOf(headerViewHolder.item);
                         int index = pos + 1;
@@ -71,7 +72,7 @@ public class CouponListRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
                             index++;
                         }
                         notifyItemRangeInserted(pos + 1, index - pos - 1);
-                        // itemController.btn_expand_toggle.setImageResource(R.drawable.circle_minus);
+                        headerViewHolder.mButton.setImageResource(R.drawable.ic_baseline_remove_24);
                         headerViewHolder.item.dataItems = null;
                     }
                 }
