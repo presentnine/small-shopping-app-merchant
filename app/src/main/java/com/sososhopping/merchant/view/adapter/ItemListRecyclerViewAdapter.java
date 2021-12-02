@@ -3,15 +3,18 @@ package com.sososhopping.merchant.view.adapter;
 import static android.view.View.GONE;
 
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.ItemItemListBinding;
 import com.sososhopping.merchant.model.item.entity.ItemList;
 
@@ -41,6 +44,16 @@ public class ItemListRecyclerViewAdapter extends RecyclerView.Adapter<ItemListRe
         Glide.with(holder.itemView.getContext())
                 .load(Uri.parse(mValues.get(position).getImgUrl()))
                 .into(holder.mImage);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("storeId", mValues.get(position).getStoreId());
+                bundle.putInt("itemId", mValues.get(position).getId());
+                Navigation.findNavController((View) (v.getParent().getParent().getParent().getParent())).navigate(R.id.action_itemListFragment_to_itemUpdateFragment, bundle);
+            }
+        });
     }
 
     @Override

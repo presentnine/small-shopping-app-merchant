@@ -17,6 +17,9 @@ public interface ItemService {
     @GET("store/{storeId}/item")
     Call<List<ItemList>> requestStoreItemList(@Header("token") String token, @Path("storeId") int storeId);
 
+    @GET("store/{storeId}/item/{itemId}")
+    Call<ItemList> requestStoreItem(@Header("token") String token, @Path("storeId") int storeId, @Path("itemId") int itemId);
+
     @Multipart
     @POST("store/{storeId}/item")
     Call<Void> requestRegisterItem(@Header("token") String token, @Path("storeId") int storeId, @Part MultipartBody.Part dto, @Part MultipartBody.Part image);

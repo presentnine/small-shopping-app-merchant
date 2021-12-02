@@ -137,6 +137,9 @@
             android:name="storeId"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_itemListFragment_to_itemUpdateFragment"
+            app:destination="@id/itemUpdateFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemRegisterFragment"
@@ -344,4 +347,9 @@
         android:label="question_dialog"
         tools:layout="@layout/dialog_question"
         />
+    <fragment
+        android:id="@+id/itemUpdateFragment"
+        android:name="com.sososhopping.merchant.view.fragment.ItemUpdateFragment"
+        android:label="fragment_item_update"
+        tools:layout="@layout/fragment_item_update" />
 </navigation>

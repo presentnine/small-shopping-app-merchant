@@ -19,6 +19,7 @@ import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Path;
 
 public class ItemRepository {
 
@@ -70,6 +71,24 @@ public class ItemRepository {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 onError.run();
+            }
+        });
+    }
+
+    public void requestItem(String token, int storeId, int itemId, Consumer<ItemList> onSuccess) {
+        service.requestStoreItem(token, storeId, itemId).enqueue(new Callback<ItemList>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<ItemList> call, Response<ItemList> response) {
+                System.out.println(response.code());
+                if (response.code() == 200) {
+                    onSuccess.accept(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ItemList> call, Throwable t) {
+
             }
         });
     }
