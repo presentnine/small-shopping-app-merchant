@@ -279,7 +279,7 @@
             android:defaultValue="0" />
         <action
             android:id="@+id/action_couponListFragment_to_couponFormDialog"
-            app:destination="@id/navigation" />
+            app:destination="@id/navigationCoupon" />
     </fragment>
     <fragment
         android:id="@+id/couponRegisterFragment"
@@ -327,4 +327,9 @@
                 app:argType="integer" />
         </dialog>
     </navigation>
+    <fragment
+        android:id="@+id/orderCheckFragment"
+        android:name="com.sososhopping.merchant.view.fragment.OrderCheckFragment"
+        android:label="fragment_order_check"
+        tools:layout="@layout/fragment_order_check" />
 </navigation>

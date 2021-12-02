@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/pending"
+        android:icon="@drawable/ic_baseline_access_alarm_24"
+        android:title="승인 대기" />
+
+    <item
+        android:id="@+id/pickup"
+        android:icon="@drawable/ic_baseline_local_mall_24"
+        android:title="오늘 픽업" />
+
+    <item
+        android:id="@+id/delivery"
+        android:icon="@drawable/ic_baseline_two_wheeler_24"
+        android:title="배송" />
+</menu>

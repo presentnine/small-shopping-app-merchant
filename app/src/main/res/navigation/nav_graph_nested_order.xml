@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_nested_order"
+    app:startDestination="@id/nestedOrderPendingListFragment">
+
+    <fragment
+        android:id="@+id/nestedOrderPendingListFragment"
+        android:name="com.sososhopping.merchant.view.fragment.NestedOrderPendingListFragment"
+        android:label="fragment_nested_order_pending_list"
+        tools:layout="@layout/fragment_nested_order_pending_list" >
+        <action
+            android:id="@+id/action_nestedOrderPendingListFragment_to_nestedOrderPickupFragment"
+            app:destination="@id/nestedOrderPickupFragment" />
+        <action
+            android:id="@+id/action_nestedOrderPendingListFragment_to_nestedOrderDeliveryFragment"
+            app:destination="@id/nestedOrderDeliveryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nestedOrderPickupFragment"
+        android:name="com.sososhopping.merchant.view.fragment.NestedOrderPickupFragment"
+        android:label="fragment_nested_order_pickup"
+        tools:layout="@layout/fragment_nested_order_pickup" >
+        <action
+            android:id="@+id/action_nestedOrderPickupFragment_to_nestedOrderPendingListFragment"
+            app:destination="@id/nestedOrderPendingListFragment" />
+        <action
+            android:id="@+id/action_nestedOrderPickupFragment_to_nestedOrderDeliveryFragment"
+            app:destination="@id/nestedOrderDeliveryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nestedOrderDeliveryFragment"
+        android:name="com.sososhopping.merchant.view.fragment.NestedOrderDeliveryFragment"
+        android:label="fragment_nested_order_delivery"
+        tools:layout="@layout/fragment_nested_order_delivery" >
+        <action
+            android:id="@+id/action_nestedOrderDeliveryFragment_to_nestedOrderPickupFragment"
+            app:destination="@id/nestedOrderPickupFragment" />
+        <action
+            android:id="@+id/action_nestedOrderDeliveryFragment_to_nestedOrderPendingListFragment"
+            app:destination="@id/nestedOrderPendingListFragment" />
+    </fragment>
+</navigation>
