@@ -17,6 +17,7 @@ import com.sososhopping.merchant.databinding.FragmentCouponListBinding;
 import com.sososhopping.merchant.model.coupon.dto.response.CouponListResponseDto;
 import com.sososhopping.merchant.model.coupon.entity.CouponList;
 import com.sososhopping.merchant.model.coupon.repository.CouponRepository;
+import com.sososhopping.merchant.util.token.TokenStore;
 import com.sososhopping.merchant.view.adapter.CouponListRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class CouponListFragment extends Fragment {
         Consumer<CouponListResponseDto> onSuccess = this::onListAcquired;
         Runnable onError = this::onNetworkError;
         
-        CouponRepository.getInstance().requestCouponList(((MainActivity)getActivity()).getLoginToken(), storeId, onSuccess, onError);
+        CouponRepository.getInstance().requestCouponList(TokenStore.getAuthToken(), storeId, onSuccess, onError);
 
         binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override

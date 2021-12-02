@@ -23,6 +23,7 @@ import com.sososhopping.merchant.model.accounting.entity.AccountingList;
 import com.sososhopping.merchant.model.accounting.repository.AccountingRepository;
 import com.sososhopping.merchant.model.board.entity.BoardList;
 import com.sososhopping.merchant.model.board.repository.BoardRepository;
+import com.sososhopping.merchant.util.token.TokenStore;
 import com.sososhopping.merchant.view.adapter.AccountingListRecyclerViewAdapter;
 import com.sososhopping.merchant.view.adapter.BoardListRecyclerViewAdapter;
 import com.sososhopping.merchant.viewmodel.AccountingListViewModel;
@@ -72,7 +73,7 @@ public class AccountingFragment extends Fragment {
         Consumer<List<AccountingList>> onItemListAcquired = this::onBoardListAcquired;
         Runnable onError = this::onNetworkError;
 
-        AccountingRepository.getInstance().requestAccountingList(((MainActivity)getActivity()).getLoginToken(), storeId, viewModel.getDateString(), onItemListAcquired, onError);
+        AccountingRepository.getInstance().requestAccountingList(TokenStore.getAuthToken(), storeId, viewModel.getDateString(), onItemListAcquired, onError);
 
         binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +90,7 @@ public class AccountingFragment extends Fragment {
             public void onClick(View v) {
                 viewModel.toPrevMonth();
                 binding.invalidateAll();
-                AccountingRepository.getInstance().requestAccountingList(((MainActivity)getActivity()).getLoginToken(), storeId, viewModel.getDateString(), onItemListAcquired, onError);
+                AccountingRepository.getInstance().requestAccountingList(TokenStore.getAuthToken(), storeId, viewModel.getDateString(), onItemListAcquired, onError);
             }
         });
 
@@ -99,14 +100,14 @@ public class AccountingFragment extends Fragment {
             public void onClick(View v) {
                 viewModel.toNextMonth();
                 binding.invalidateAll();
-                AccountingRepository.getInstance().requestAccountingList(((MainActivity)getActivity()).getLoginToken(), storeId, viewModel.getDateString(), onItemListAcquired, onError);
+                AccountingRepository.getInstance().requestAccountingList(TokenStore.getAuthToken(), storeId, viewModel.getDateString(), onItemListAcquired, onError);
             }
         });
 
         getParentFragmentManager().setFragmentResultListener("key", getViewLifecycleOwner(), new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                AccountingRepository.getInstance().requestAccountingList(((MainActivity)getActivity()).getLoginToken(), storeId, viewModel.getDateString(), onItemListAcquired, onError);
+                AccountingRepository.getInstance().requestAccountingList(TokenStore.getAuthToken(), storeId, viewModel.getDateString(), onItemListAcquired, onError);
             }
         });
 

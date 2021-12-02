@@ -21,6 +21,7 @@ import com.sososhopping.merchant.model.auth.dto.request.LoginRequestDto;
 import com.sososhopping.merchant.model.auth.dto.response.LoginResponseDto;
 import com.sososhopping.merchant.util.Constant;
 import com.sososhopping.merchant.util.sharedpreferences.SharedPreferenceManager;
+import com.sososhopping.merchant.util.token.TokenStore;
 import com.sososhopping.merchant.viewmodel.LoginViewModel;
 
 import java.util.function.BiConsumer;
@@ -94,7 +95,7 @@ public class LoginDialog extends DialogFragment {
         String token = responseDto.getToken();
         SharedPreferenceManager.setString(getContext(), Constant.SHARED_PREFERENCE_KEY_ID, id);
         SharedPreferenceManager.setString(getContext(), Constant.SHARED_PREFERENCE_KEY_PASSWORD, password);
-        ((MainActivity) getActivity()).setLoginToken(token);
+        TokenStore.storeAuthToken(token);
         navigateToMain();
     }
 

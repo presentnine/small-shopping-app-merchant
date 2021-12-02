@@ -16,6 +16,7 @@ import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.FragmentBoardListBinding;
 import com.sososhopping.merchant.model.board.entity.BoardList;
 import com.sososhopping.merchant.model.board.repository.BoardRepository;
+import com.sososhopping.merchant.util.token.TokenStore;
 import com.sososhopping.merchant.view.adapter.BoardListRecyclerViewAdapter;
 
 import java.util.List;
@@ -58,7 +59,7 @@ public class BoardListFragment extends Fragment {
         Consumer<List<BoardList>> onItemListAcquired = this::onBoardListAcquired;
         Runnable onError = this::onNetworkError;
 
-        BoardRepository.getInstance().requestBoardList(((MainActivity)getActivity()).getLoginToken(), storeId, onItemListAcquired, onError);
+        BoardRepository.getInstance().requestBoardList(TokenStore.getAuthToken(), storeId, onItemListAcquired, onError);
 
         binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 import com.sososhopping.merchant.MainActivity;
 import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.FragmentCouponRegisterBinding;
+import com.sososhopping.merchant.util.token.TokenStore;
 import com.sososhopping.merchant.viewmodel.BoardRegisterViewModel;
 import com.sososhopping.merchant.viewmodel.CouponRegisterViewModel;
 
@@ -59,7 +60,7 @@ public class CouponRegisterFragment extends Fragment {
         binding.shopListToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.couponRegister) viewModel.requestRegister(((MainActivity)getActivity()).getLoginToken(), storeId);
+                if (item.getItemId() == R.id.couponRegister) viewModel.requestRegister(TokenStore.getAuthToken(), storeId);
                 return true;
             }
         });

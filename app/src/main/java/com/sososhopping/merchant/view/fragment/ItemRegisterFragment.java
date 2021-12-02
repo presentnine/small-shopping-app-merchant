@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import com.sososhopping.merchant.MainActivity;
 import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.FragmentItemRegisterBinding;
+import com.sososhopping.merchant.util.token.TokenStore;
 import com.sososhopping.merchant.viewmodel.ItemRegisterViewModel;
 
 import java.io.IOException;
@@ -102,7 +103,7 @@ public class ItemRegisterFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.itemRegister){
-                    viewModel.requestRegister(((MainActivity)getActivity()).getLoginToken(), storeId, onSuccess, onError);
+                    viewModel.requestRegister(TokenStore.getAuthToken(), storeId, onSuccess, onError);
                 }
                 return true;
             }

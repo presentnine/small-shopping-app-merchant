@@ -15,6 +15,7 @@ import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.FragmentReviewListBinding;
 import com.sososhopping.merchant.model.review.dto.response.ReviewListResponseDto;
 import com.sososhopping.merchant.model.review.repository.ReviewRepository;
+import com.sososhopping.merchant.util.token.TokenStore;
 import com.sososhopping.merchant.view.adapter.ReviewListRecyclerViewAdapter;
 
 import java.util.function.Consumer;
@@ -56,7 +57,7 @@ public class ReviewListFragment extends Fragment {
         Consumer<ReviewListResponseDto> onReviewListAcquired = this::onReviewListAcquired;
         Runnable onError = this::onNetworkError;
 
-        ReviewRepository.getInstance().requestReviewList(((MainActivity)getActivity()).getLoginToken(), storeId, onReviewListAcquired, onError);
+        ReviewRepository.getInstance().requestReviewList(TokenStore.getAuthToken(), storeId, onReviewListAcquired, onError);
 
         return binding.getRoot();
     }

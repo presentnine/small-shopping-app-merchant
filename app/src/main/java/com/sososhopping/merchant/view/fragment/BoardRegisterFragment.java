@@ -25,6 +25,7 @@ import android.widget.RadioGroup;
 import com.sososhopping.merchant.MainActivity;
 import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.FragmentBoardRegisterBinding;
+import com.sososhopping.merchant.util.token.TokenStore;
 import com.sososhopping.merchant.viewmodel.BoardRegisterViewModel;
 
 import java.io.IOException;
@@ -105,7 +106,7 @@ public class BoardRegisterFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if(item.getItemId() == R.id.boardRegister) {
-                    viewModel.requestRegister(((MainActivity)getActivity()).getLoginToken(), storeId, onSuccess, onError);
+                    viewModel.requestRegister(TokenStore.getAuthToken(), storeId, onSuccess, onError);
                 }
                 return true;
             }

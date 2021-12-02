@@ -17,6 +17,7 @@ import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.NestedFragmentShopListBinding;
 import com.sososhopping.merchant.model.store.entity.StoreList;
 import com.sososhopping.merchant.model.store.repository.StoreRepository;
+import com.sososhopping.merchant.util.token.TokenStore;
 import com.sososhopping.merchant.view.adapter.StoreListRecyclerViewAdapter;
 
 import java.util.List;
@@ -48,7 +49,7 @@ public class NestedStoreListFragment extends Fragment {
         Consumer<List<StoreList>> onShopListAcquired = this::onShopListAcquired;
         Runnable onFailed = this::onNetworkError;
 
-        StoreRepository.getInstance().requestStoreList(((MainActivity)getActivity()).getLoginToken(), onShopListAcquired, onFailed);
+        StoreRepository.getInstance().requestStoreList(TokenStore.getAuthToken(), onShopListAcquired, onFailed);
 
         binding.shopListToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override

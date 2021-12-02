@@ -16,6 +16,7 @@ import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.FragmentNestedStoreConsoleBinding;
 import com.sososhopping.merchant.model.store.dto.response.StoreOpenStatusResponseDto;
 import com.sososhopping.merchant.model.store.repository.StoreRepository;
+import com.sososhopping.merchant.util.token.TokenStore;
 
 import java.util.function.Consumer;
 
@@ -59,7 +60,7 @@ public class NestedStoreConsoleFragment extends Fragment {
         Consumer<StoreOpenStatusResponseDto> onStatusChecked = this::onBusinessStatusChecked;
         Runnable onError = this::onNetworkError;
 
-        StoreRepository.getInstance().requestStoreBusinessStatus(((MainActivity)getActivity()).getLoginToken(), storeId, onStatusChecked, onError);
+        StoreRepository.getInstance().requestStoreBusinessStatus(TokenStore.getAuthToken(), storeId, onStatusChecked, onError);
 
         binding.itemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +83,7 @@ public class NestedStoreConsoleFragment extends Fragment {
         binding.storeOpenLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StoreRepository.getInstance().requestStoreBusinessStatusUpdate(((MainActivity)getActivity()).getLoginToken(), storeId, onStatusChecked, onError);
+                StoreRepository.getInstance().requestStoreBusinessStatusUpdate(TokenStore.getAuthToken(), storeId, onStatusChecked, onError);
             }
         });
 

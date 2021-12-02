@@ -17,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.sososhopping.merchant.MainActivity;
 import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.DialogAccountingFormBinding;
+import com.sososhopping.merchant.util.token.TokenStore;
 import com.sososhopping.merchant.viewmodel.AccountingRegisterViewModel;
 import com.sososhopping.merchant.viewmodel.LoginViewModel;
 
@@ -62,7 +63,7 @@ public class AccountingFormDialog extends DialogFragment {
         binding.check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.requestRegister(((MainActivity)getActivity()).getLoginToken(), storeId, onSuccess, onError);
+                viewModel.requestRegister(TokenStore.getAuthToken(), storeId, onSuccess, onError);
             }
         });
 

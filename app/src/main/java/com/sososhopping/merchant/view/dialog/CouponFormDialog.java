@@ -17,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.sososhopping.merchant.MainActivity;
 import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.DialogCouponFormBinding;
+import com.sososhopping.merchant.util.token.TokenStore;
 import com.sososhopping.merchant.viewmodel.CouponModifyViewModel;
 
 public class CouponFormDialog extends DialogFragment {
@@ -62,7 +63,7 @@ public class CouponFormDialog extends DialogFragment {
         binding.check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.requestCouponCheck(((MainActivity)getActivity()).getLoginToken(), storeId);
+                viewModel.requestCouponCheck(TokenStore.getAuthToken(), storeId);
             }
         });
 

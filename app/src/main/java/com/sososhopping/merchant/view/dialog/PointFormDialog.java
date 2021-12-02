@@ -19,6 +19,7 @@ import com.sososhopping.merchant.MainActivity;
 import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.DialogPointFormBinding;
 import com.sososhopping.merchant.model.point.dto.response.PointModifyResponseDto;
+import com.sososhopping.merchant.util.token.TokenStore;
 import com.sososhopping.merchant.viewmodel.PointModifyViewModel;
 
 import java.util.function.Consumer;
@@ -70,7 +71,7 @@ public class PointFormDialog extends DialogFragment {
         binding.check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.requestUserCheck(((MainActivity)getActivity()).getLoginToken(), storeId, onSuccess, onFailed, onError);
+                viewModel.requestUserCheck(TokenStore.getAuthToken(), storeId, onSuccess, onFailed, onError);
             }
         });
 

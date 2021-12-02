@@ -17,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.sososhopping.merchant.MainActivity;
 import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.DialogPointCheckBinding;
+import com.sososhopping.merchant.util.token.TokenStore;
 import com.sososhopping.merchant.viewmodel.PointModifyViewModel;
 
 public class PointCheckDialog extends DialogFragment {
@@ -77,7 +78,7 @@ public class PointCheckDialog extends DialogFragment {
         binding.loginLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.requestPointModify(((MainActivity)getActivity()).getLoginToken(), storeId, onSuccess, onError);
+                viewModel.requestPointModify(TokenStore.getAuthToken(), storeId, onSuccess, onError);
             }
         });
 

@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import com.sososhopping.merchant.MainActivity;
 import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.FragmentStoreRegisterMetadataFormBinding;
+import com.sososhopping.merchant.util.token.TokenStore;
 import com.sososhopping.merchant.viewmodel.StoreRegisterViewModel;
 
 import java.io.IOException;
@@ -63,7 +64,7 @@ public class StoreRegisterMetadataFormFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.storeRegisterMetadataRegister) {
-                    viewModel.requestRegister(((MainActivity)getActivity()).getLoginToken(), onSuccess, onError);
+                    viewModel.requestRegister(TokenStore.getAuthToken(), onSuccess, onError);
                 }
                 return true;
             }

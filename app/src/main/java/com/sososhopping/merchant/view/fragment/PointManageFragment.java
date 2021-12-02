@@ -17,6 +17,7 @@ import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.FragmentPointManageBinding;
 import com.sososhopping.merchant.model.point.dto.response.PointRuleResponseDto;
 import com.sososhopping.merchant.model.point.repository.PointRepository;
+import com.sososhopping.merchant.util.token.TokenStore;
 import com.sososhopping.merchant.viewmodel.PointRuleViewModel;
 
 import java.util.function.Consumer;
@@ -58,12 +59,12 @@ public class PointManageFragment extends Fragment {
 
         Consumer<PointRuleResponseDto> onPointRuleChecked = this::onPointRuleChecked;
         Runnable onError = this::onNetworkError;
-        PointRepository.getInstance().requestPointRule(((MainActivity)getActivity()).getLoginToken(), storeId, onPointRuleChecked, onError);
+        PointRepository.getInstance().requestPointRule(TokenStore.getAuthToken(), storeId, onPointRuleChecked, onError);
 
         binding.pointRuleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.requestUpdate(((MainActivity)getActivity()).getLoginToken(), storeId, onError);
+                viewModel.requestUpdate(TokenStore.getAuthToken(), storeId, onError);
             }
         });
 
