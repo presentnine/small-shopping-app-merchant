@@ -1,7 +1,10 @@
 package com.sososhopping.merchant.view.adapter;
 
+import static android.view.View.GONE;
+
 import android.net.Uri;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,6 +37,7 @@ public class ItemListRecyclerViewAdapter extends RecyclerView.Adapter<ItemListRe
         holder.mDescriptionView.setText(mValues.get(position).getDescription());
         holder.mUnitView.setText(mValues.get(position).getPurchaseUnit());
         holder.mUnitPriceView.setText(Integer.toString(mValues.get(position).getUnitPrice()));
+        holder.mDisabledView.setVisibility(mValues.get(position).isSaleStatus() ? GONE : View.VISIBLE);
         Glide.with(holder.itemView.getContext())
                 .load(Uri.parse(mValues.get(position).getImgUrl()))
                 .into(holder.mImage);
@@ -50,6 +54,7 @@ public class ItemListRecyclerViewAdapter extends RecyclerView.Adapter<ItemListRe
         public final TextView mUnitView;
         public final TextView mUnitPriceView;
         public final ImageView mImage;
+        public final TextView mDisabledView;
         public ItemList mItem;
 
         public ViewHolder(ItemItemListBinding binding) {
@@ -59,6 +64,7 @@ public class ItemListRecyclerViewAdapter extends RecyclerView.Adapter<ItemListRe
             mImage = binding.shopListItemImage;
             mUnitView = binding.itemListItemUnit;
             mUnitPriceView = binding.itemListItemUnitPrice;
+            mDisabledView = binding.itemListDisabled;
         }
     }
 }
