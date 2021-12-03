@@ -57,6 +57,8 @@ public class NestedStoreConsoleFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_nested_store_console, container, false);
 
+        System.out.println("Console StoreId: " + storeId);
+
         Consumer<StoreOpenStatusResponseDto> onStatusChecked = this::onBusinessStatusChecked;
         Runnable onError = this::onNetworkError;
 
@@ -127,7 +129,6 @@ public class NestedStoreConsoleFragment extends Fragment {
     }
 
     private void onBusinessStatusChecked(StoreOpenStatusResponseDto dto) {
-        System.out.println(storeId);
         boolean result = dto.getOpenStatus();
 
         if (result) {
