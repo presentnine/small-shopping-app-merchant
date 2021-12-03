@@ -17,7 +17,7 @@ public class ItemRegisterViewModel extends ViewModel {
     MutableLiveData<String> unit = new MutableLiveData<>();
     MutableLiveData<String> unitPrice = new MutableLiveData<>();
 
-    MutableLiveData<Boolean> salesStatus = new MutableLiveData<>(false);
+    MutableLiveData<Boolean> salesStatus = new MutableLiveData<>(true);
 
     public MutableLiveData<Bitmap> getBitmap() {
         return bitmap;

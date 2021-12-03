@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="itemRegisterViewModel"
-            type="com.sososhopping.merchant.viewmodel.ItemRegisterViewModel" />
+            name="itemUpdateViewModel"
+            type="com.sososhopping.merchant.viewmodel.ItemUpdateViewModel" />
     </data>
 
 
@@ -50,7 +50,7 @@
                 android:layout_height="160dp"
                 android:layout_marginTop="48dp"
                 android:contentDescription="물품 이미지"
-                app:imgBitmap="@{itemRegisterViewModel.bitmap}"
+                app:imgBitmap="@{itemUpdateViewModel.bitmap}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/shopListToolbar"/>
@@ -86,7 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:text="@={itemRegisterViewModel.name}"
+                    android:text="@={itemUpdateViewModel.name}"
                     android:hint="물품 이름" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text|textMultiLine"
                     android:lines="3"
-                    android:text="@={itemRegisterViewModel.description}"
+                    android:text="@={itemUpdateViewModel.description}"
                     android:hint="물품 설명" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -133,7 +133,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:text="@={itemRegisterViewModel.unit}"
+                    android:text="@={itemUpdateViewModel.unit}"
                     android:hint="구매 단위" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -155,7 +155,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
-                    android:text="@={itemRegisterViewModel.unitPrice}"
+                    android:text="@={itemUpdateViewModel.unitPrice}"
                     android:hint="단위별 가격" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -167,7 +167,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:text="구매 불가능 품목"
-                android:checked="@={!itemRegisterViewModel.salesStatus}"
+                android:checked="@={!itemUpdateViewModel.salesStatus}"
                 app:layout_constraintTop_toBottomOf="@id/itemUnitLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />

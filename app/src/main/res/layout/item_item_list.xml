@@ -97,6 +97,20 @@
                 app:layout_constraintStart_toEndOf="@id/itemListPer"
                 app:layout_constraintTop_toBottomOf="@+id/shopListItemDescription" />
 
+            <TextView
+                android:id="@+id/itemListDisabled"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginStart="4dp"
+                android:textSize="14sp"
+                android:textColor="@color/negative"
+                android:lines="1"
+                android:text="구매 불가능"
+                android:ellipsize="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
