@@ -34,12 +34,11 @@
             android:id="@+id/chatroom"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="#3E3FE9"
             app:layout_constraintTop_toBottomOf="@id/chatroomToolbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/chatroomInput"
-            tools:listitem="@layout/item_chat"
+            tools:listitem="@layout/item_my_chat"
             />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -77,9 +76,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 />
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

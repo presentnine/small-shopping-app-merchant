@@ -34,17 +34,29 @@ public class ChatAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat, parent, false);
+        View v;
+
+        if (viewType == 1)
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_my_chat, parent, false);
+        else
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_other_chat, parent, false);
+
         ChatAdapter.ViewHolder vh = new ChatAdapter.ViewHolder(v);
         return vh;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (chatList.get(position).senderUid.equals(ownerUid))
+            return 1;
+        else
+            return 2;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (!chatList.get(position).senderUid.equals(ownerUid)) {
             ((ViewHolder) holder).chatCardViewNickName.setText(userName);
-            ((ViewHolder) holder).chatCardViewLayout.setBackgroundColor(Color.parseColor("#FFF176"));
-            ((ViewHolder) holder).chatCardView.setBackgroundColor(Color.parseColor("#FFF176"));
         } else {
             ((ViewHolder) holder).chatCardViewNickName.setText("본인");
         }
@@ -66,7 +78,6 @@ public class ChatAdapter extends RecyclerView.Adapter {
         public TextView chatCardViewNickName;
         public TextView chatCardViewTime;
         public TextView chatCardViewContent;
-        public ConstraintLayout chatCardViewLayout;
         public CardView chatCardView;
 
         public ViewHolder(@NonNull View v) {
@@ -74,7 +85,6 @@ public class ChatAdapter extends RecyclerView.Adapter {
             this.chatCardViewNickName = v.findViewById(R.id.chatCardViewNickName);
             this.chatCardViewTime = v.findViewById(R.id.chatCardViewTime);
             this.chatCardViewContent = v.findViewById(R.id.chatCardViewContent);
-            this.chatCardViewLayout = v.findViewById(R.id.chatCardViewLayout);
             this.chatCardView = v.findViewById(R.id.chatCardView);
         }
     }

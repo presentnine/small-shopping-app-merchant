@@ -9,29 +9,20 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.ServerValue;
 import com.sososhopping.merchant.databinding.FragmentConversationBinding;
-import com.sososhopping.merchant.util.token.TokenStore;
 
 import java.util.ArrayList;
 
@@ -40,11 +31,14 @@ public class ConversationFragment extends Fragment {
     private static final String STOREID = "storeId";
     private static final String CHATROOMID = "chatroomId";
     private static final String USERNAME = "userName";
+    private static final String CHATROOMMESSAGESPATH = "ChatroomMessages";
+    private static final String CHATROOMINFOR = "ChatroomInfor";
 
     private String storeId;
     private String chatroomId;
     private String userName;
     private String ownerUid;
+    private String userUid;
 
     private RecyclerView chatRecyclerView;
     private ChatAdapter adapter;
@@ -55,9 +49,6 @@ public class ConversationFragment extends Fragment {
 
     ArrayList<Chat> chatList = new ArrayList<>();
 
-    private FirebaseAuth mAuth;
-    private FirebaseUser user;
-    private FirebaseDatabase firebaseDatabase;
     private DatabaseReference ref;
 
     public ConversationFragment() {
@@ -82,51 +73,12 @@ public class ConversationFragment extends Fragment {
             userName = getArguments().getString(USERNAME);
         }
 
-        ownerUid = chatroomId.split("@")[1];
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.signInWithCustomToken(TokenStore.getFirebaseToken())
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("TAG", "signInWithCustomToken:success");
-                            Toast.makeText(getContext(), "Authentication success.",
-                                    Toast.LENGTH_SHORT).show();
+        String[] split = chatroomId.split("@");
 
-                            user = mAuth.getCurrentUser();
-                            firebaseDatabase = FirebaseDatabase.getInstance();
-                            ref = firebaseDatabase.getReference();
-                            ref.child("ChatRoomMessage").child(chatroomId).addChildEventListener(new ChildEventListener() {
-                                @Override
-                                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                                    Chat chat = snapshot.getValue(Chat.class);
-                                    chatList.add(chat);
-                                    adapter.notifyDataSetChanged();
-                                }
+        ownerUid = split[1];
+        userUid = split[2];
 
-                                @Override
-                                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                                }
-
-                                @Override
-                                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-                                }
-
-                                @Override
-                                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
-                        }
-                    }
-                });
+        ref = ((MainActivity)getActivity()).ref;
     }
 
     @Override
@@ -137,10 +89,11 @@ public class ConversationFragment extends Fragment {
         chatroomInputEditText = binding.chatroomInputEditText;
         chatroomInputSendButton = binding.chatroomInputSendButton;
         chatroomToolbarTextView = binding.chatroomToolbarTextView;
-        chatroomToolbarTextView.setText(userName+ "님");
+        chatroomToolbarTextView.setText(userName+ " 님");
 
         chatLayoutManager = new LinearLayoutManager(getContext());
         adapter = new ChatAdapter(getContext(), userName, ownerUid, chatList);
+        setChatList();
 
         chatRecyclerView = binding.chatroom;
         chatRecyclerView.setLayoutManager(chatLayoutManager);
@@ -151,11 +104,19 @@ public class ConversationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!chatroomInputEditText.getText().toString().equals("")) {
-                    Chat chat = new Chat(ownerUid, "text", chatroomInputEditText.getText().toString(), null);
-                    ref.child("ChatRoomMessage").child(chatroomId).push().setValue(chat).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    String content = chatroomInputEditText.getText().toString();
+                    Chat chat = new Chat(ownerUid, "text", content, null);
+
+                    ref.child(CHATROOMMESSAGESPATH).child(chatroomId).push().setValue(chat).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
                             chatroomInputEditText.setText("");
+
+                            ref.child(CHATROOMINFOR).child(storeId).child(chatroomId).child("lastMessage").setValue(content);
+                            ref.child(CHATROOMINFOR).child(storeId).child(chatroomId).child("lastMessageTimestamp").setValue(ServerValue.TIMESTAMP);
+
+                            ref.child(CHATROOMINFOR).child(userUid).child(chatroomId).child("lastMessage").setValue(content);
+                            ref.child(CHATROOMINFOR).child(userUid).child(chatroomId).child("lastMessageTimestamp").setValue(ServerValue.TIMESTAMP);
                         }
                     });
                 }
@@ -163,5 +124,44 @@ public class ConversationFragment extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        ref.child(CHATROOMINFOR).child(storeId).child(chatroomId).child("leaveChatroomTimestamp").setValue(ServerValue.TIMESTAMP);
+    }
+
+    private void setChatList() {
+        ref.child(CHATROOMMESSAGESPATH).child(chatroomId).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Chat chat = snapshot.getValue(Chat.class);
+                chatList.add(chat);
+                adapter.notifyDataSetChanged();
+                chatRecyclerView.scrollToPosition(chatList.size() - 1);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

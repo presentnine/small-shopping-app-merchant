@@ -73,13 +73,9 @@ public class MainFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             ((MainActivity) getActivity()).user = ((MainActivity) getActivity()).mAuth.getCurrentUser();
-                            ((MainActivity) getActivity()).isConnectWithFirebase = true;
+                            ((MainActivity) getActivity()).afterLogin = true;
                             ((MainActivity) getActivity()).firebaseDatabase = FirebaseDatabase.getInstance();
                             ((MainActivity) getActivity()).ref = ((MainActivity) getActivity()).firebaseDatabase.getReference();
-
-                            Log.d("TAG", "signInWithCustomToken:success");
-                            Toast.makeText(getContext(), "Firebase Authentication success.",
-                                    Toast.LENGTH_SHORT).show();
 
                             //FcmId 설정
                             FirebaseMessaging.getInstance().getToken()
@@ -91,7 +87,6 @@ public class MainFragment extends Fragment {
                                                 return;
                                             }
 
-                                            // Get new FCM registration token
                                             ((MainActivity) getActivity()).ref.child("FcmId").child(((MainActivity) getActivity()).user.getUid()).setValue(task.getResult());
                                         }
                                     });

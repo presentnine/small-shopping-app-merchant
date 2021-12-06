@@ -1,16 +1,22 @@
 package com.sososhopping.merchant;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
+import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.sososhopping.merchant.databinding.ActivityMainBinding;
+import com.sososhopping.merchant.util.token.TokenStore;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public FirebaseUser user;
     public FirebaseDatabase firebaseDatabase;
     public DatabaseReference ref;
-    public boolean isConnectWithFirebase = false;
+    public boolean afterLogin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,21 +35,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
 
-        //온라인 설정
-        if (isConnectWithFirebase == true) {
-            ref.child("User").child(this.user.getUid()).child("connection").setValue(true);
+        //파이어베이스 재인증 및 사용자 온라인 설정
+        if (afterLogin == true) {
+            user = mAuth.getCurrentUser();
+            if (user == null) {
+                mAuth.signInWithCustomToken(TokenStore.getFirebaseToken())
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    user = mAuth.getCurrentUser();
+                                    ref.child("User").child(user.getUid()).child("connection").setValue(true);
+                                }
+                            }
+                        });
+            }
         }
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
 
         //오프라인 설정
-        if (isConnectWithFirebase == true) {
+        if (afterLogin == true) {
             ref.child("User").child(this.user.getUid()).child("connection").setValue(false);
             ref.child("User").child(this.user.getUid()).child("lastOnline").setValue(ServerValue.TIMESTAMP);
             mAuth.signOut();
