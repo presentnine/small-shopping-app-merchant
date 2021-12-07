@@ -51,6 +51,7 @@ public class StoreListRecyclerViewAdapter extends RecyclerView.Adapter<StoreList
                     public void onClick(View v) {
                         Bundle bundle = new Bundle();
                         bundle.putInt("storeId", holder.mItem.getId());
+                        bundle.putString("storeName", holder.mItem.getName());
                         Navigation.findNavController((View) (v.getParent().getParent().getParent().getParent().getParent().getParent())).navigate(R.id.action_mainFragment_to_storeManagementFragment, bundle);
                     }
                 });

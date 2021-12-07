@@ -18,19 +18,33 @@
             android:padding="10dp">
 
             <TextView
-                android:id="@+id/reviewListUserName"
-                android:layout_width="wrap_content"
+                android:id="@+id/userName"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="사용자 이름"
                 android:textColor="#3E3FE9"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:paddingBottom="10dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/rating"/>
+
+            <TextView
+                android:id="@+id/datetime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="2021/10/14 15:00"
+                android:textSize="14sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:layout_constraintTop_toBottomOf="@+id/userName"
+                app:layout_constraintEnd_toStartOf="@id/rating"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <RatingBar
-                android:id="@+id/reviewListRating"
+                android:id="@+id/rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:isIndicator="true"
@@ -41,29 +55,34 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
-                android:id="@+id/reviewListReviewContent"
+                android:id="@+id/content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
                 android:ellipsize="end"
-                android:maxLines="2"
-                android:text="샘플 리뷰 내용입니다.\n샘플 리뷰 내용입니다.\n샘플 리뷰 내용입니다."
+                android:text="샘플 리뷰 내용입니다."
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/reviewListReviewDate"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintTop_toBottomOf="@id/reviewListUserName" />
+                app:layout_constraintTop_toBottomOf="@id/datetime"
+                app:layout_constraintEnd_toStartOf="@id/more"/>
 
-            <TextView
-                android:id="@+id/reviewListReviewDate"
+            <ImageView
+                android:id="@+id/more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2021/10/14 15:00"
-                android:textSize="14sp"
+                android:src="@drawable/ic_baseline_more_horiz_48"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/barrier"/>
 
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="rating"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

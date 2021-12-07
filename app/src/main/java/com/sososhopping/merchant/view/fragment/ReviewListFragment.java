@@ -23,8 +23,10 @@ import java.util.function.Consumer;
 public class ReviewListFragment extends Fragment {
 
     private static final String STOREID = "storeId";
+    private static final String STORENAME = "storeName";
 
     private int storeId;
+    private String storeName;
 
     FragmentReviewListBinding binding;
 
@@ -32,10 +34,11 @@ public class ReviewListFragment extends Fragment {
 
     }
 
-    public static ReviewListFragment newInstance(int storeId) {
+    public static ReviewListFragment newInstance(int storeId, String storeName) {
         ReviewListFragment fragment = new ReviewListFragment();
         Bundle args = new Bundle();
         args.putInt(STOREID, storeId);
+        args.putString(STORENAME, storeName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,6 +48,7 @@ public class ReviewListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             storeId = getArguments().getInt(STOREID);
+            storeName = getArguments().getString(STORENAME);
         }
     }
 
@@ -66,7 +70,7 @@ public class ReviewListFragment extends Fragment {
         binding.avgScore.setText(Double.toString(dto.getAverageScore()));
         binding.count.setText(Integer.toString(dto.getReviewCount()));
         if (dto.getReviewCount() != 0) {
-            binding.recyclerView.setAdapter(new ReviewListRecyclerViewAdapter(dto.getReviewLists()));
+            binding.recyclerView.setAdapter(new ReviewListRecyclerViewAdapter(storeName, dto.getReviewLists()));
         }
     }
 

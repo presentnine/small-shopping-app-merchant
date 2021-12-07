@@ -23,8 +23,10 @@ import java.util.function.Consumer;
 public class NestedStoreConsoleFragment extends Fragment {
 
     private static final String STOREID = "storeId";
+    private static final String STORENAME = "storeName";
 
     private int storeId;
+    private String storeName;
 
     FragmentNestedStoreConsoleBinding binding;
 
@@ -34,10 +36,11 @@ public class NestedStoreConsoleFragment extends Fragment {
 
     }
 
-    public static NestedStoreConsoleFragment newInstance(int storeId) {
+    public static NestedStoreConsoleFragment newInstance(int storeId, String storeName) {
         NestedStoreConsoleFragment fragment = new NestedStoreConsoleFragment();
         Bundle args = new Bundle();
         args.putInt(STOREID, storeId);
+        args.putString(STORENAME, storeName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -47,6 +50,7 @@ public class NestedStoreConsoleFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             storeId = getArguments().getInt(STOREID);
+            storeName = getArguments().getString(STORENAME);
         }
         resources = getResources();
     }
@@ -103,6 +107,7 @@ public class NestedStoreConsoleFragment extends Fragment {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt(STOREID, storeId);
+                bundle.putString(STORENAME, storeName);
                 NavHostFragment.findNavController(getParentFragment().getParentFragment()).navigate(R.id.action_storeManagementFragment_to_reviewListFragment, bundle);
             }
         });

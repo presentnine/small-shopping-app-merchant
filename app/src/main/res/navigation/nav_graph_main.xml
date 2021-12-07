@@ -127,6 +127,10 @@
         <action
             android:id="@+id/action_storeManagementFragment_to_conversationFragment"
             app:destination="@id/conversationFragment" />
+        <argument
+            android:name="storeName"
+            app:argType="string"
+            android:defaultValue='""' />
     </fragment>
     <fragment
         android:id="@+id/itemListFragment"
@@ -190,6 +194,10 @@
             android:name="storeId"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="storeName"
+            app:argType="string"
+            android:defaultValue='""' />
     </fragment>
     <navigation android:id="@+id/navigationStoreRegister"
         app:startDestination="@id/storeRegisterBasicFormFragment">

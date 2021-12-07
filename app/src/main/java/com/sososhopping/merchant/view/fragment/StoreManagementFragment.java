@@ -21,19 +21,22 @@ import com.sososhopping.merchant.databinding.FragmentStoreManagementBinding;
 public class StoreManagementFragment extends Fragment {
 
     private static final String STOREID = "storeId";
+    private static final String STORENAME = "storeName";
 
     private int storeId;
+    private String storeName;
 
-    private int current = 0;
+    int current = 0;
 
     public StoreManagementFragment() {
 
     }
 
-    public static StoreManagementFragment newInstance(int storeId) {
+    public static StoreManagementFragment newInstance(int storeId, String storeName) {
         StoreManagementFragment fragment = new StoreManagementFragment();
         Bundle args = new Bundle();
         args.putInt(STOREID, storeId);
+        args.putString(STORENAME, storeName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -43,6 +46,7 @@ public class StoreManagementFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             storeId = getArguments().getInt(STOREID);
+            storeName = getArguments().getString(STORENAME);
         }
     }
 
@@ -60,6 +64,7 @@ public class StoreManagementFragment extends Fragment {
 
         Bundle bundle = new Bundle();
         bundle.putInt(STOREID, storeId);
+        bundle.putString(STORENAME, storeName);
 
         try{
             navController.getGraph();
