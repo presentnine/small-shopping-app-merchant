@@ -198,6 +198,9 @@
             android:name="storeName"
             app:argType="string"
             android:defaultValue='""' />
+        <action
+            android:id="@+id/action_reviewListFragment_to_conversationFragment"
+            app:destination="@id/conversationFragment" />
     </fragment>
     <navigation android:id="@+id/navigationStoreRegister"
         app:startDestination="@id/storeRegisterBasicFormFragment">

@@ -28,7 +28,6 @@ import java.util.ArrayList;
 
 public class ConversationFragment extends Fragment {
 
-    private static final String STOREID = "storeId";
     private static final String CHATROOMID = "chatroomId";
     private static final String USERNAME = "userName";
     private static final String CHATROOMMESSAGESPATH = "ChatroomMessages";
@@ -57,7 +56,6 @@ public class ConversationFragment extends Fragment {
     public static ConversationFragment newInstance(String storeId, String chatroomId, String userName) {
         ConversationFragment fragment = new ConversationFragment();
         Bundle args = new Bundle();
-        args.putString(STOREID, storeId);
         args.putString(CHATROOMID, chatroomId);
         args.putString(USERNAME, userName);
         fragment.setArguments(args);
@@ -68,13 +66,12 @@ public class ConversationFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            storeId = getArguments().getString(STOREID);
             chatroomId = getArguments().getString(CHATROOMID);
             userName = getArguments().getString(USERNAME);
         }
 
         String[] split = chatroomId.split("@");
-
+        storeId = split[0];
         ownerUid = split[1];
         userUid = split[2];
 

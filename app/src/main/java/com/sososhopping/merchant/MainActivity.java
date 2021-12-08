@@ -67,4 +67,29 @@ public class MainActivity extends AppCompatActivity {
             mAuth.signOut();
         }
     }
+
+    //채팅방 생성
+    public String makeChatroom(String storeId, String userId, String customerName, String storeName) {
+        String userUid = "U" + userId;
+        String ownerUid = user.getUid();
+        String chatRoomId = storeId + "@" +  ownerUid + "@" + userUid;
+
+        ChatroomInfor chatRoomInfor = new ChatroomInfor(customerName, storeName, chatRoomId);
+        ref.child("ChatroomInfor")
+                .child(userUid)
+                .child(chatRoomId)
+                .setValue(chatRoomInfor);
+
+        ref.child("ChatroomInfor")
+                .child(storeId)
+                .child(chatRoomId)
+                .setValue(chatRoomInfor);
+
+        ChatroomUsers chatRoomUserInfor = new ChatroomUsers(userUid, ownerUid);
+        ref.child("ChatroomUsers")
+                .child(chatRoomId)
+                .setValue(chatRoomUserInfor);
+
+        return chatRoomId;
+    }
 }

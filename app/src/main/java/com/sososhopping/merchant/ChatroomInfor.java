@@ -11,6 +11,12 @@ public class ChatroomInfor {
     public ChatroomInfor() {
     }
 
+    public ChatroomInfor(String customerName, String storeName, String chatroomId) {
+        this.customerName = customerName;
+        this.storeName = storeName;
+        this.chatroomId = chatroomId;
+    }
+
     public ChatroomInfor(String customerName, String storeName, String chatroomId, String lastMessage, Object lastMessageTimestamp, Object leaveChatroomTimestamp) {
         this.customerName = customerName;
         this.storeName = storeName;

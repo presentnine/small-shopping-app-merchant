@@ -1,17 +1,21 @@
 package com.sososhopping.merchant.view.adapter;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sososhopping.merchant.MainActivity;
 import com.sososhopping.merchant.R;
 import com.sososhopping.merchant.databinding.ItemReviewListBinding;
 import com.sososhopping.merchant.model.review.Entity.ReviewList;
@@ -21,12 +25,13 @@ import java.util.List;
 public class ReviewListRecyclerViewAdapter extends RecyclerView.Adapter<ReviewListRecyclerViewAdapter.ViewHolder>{
 
     private final String mStoreName;
-
     private final List<ReviewList> mValues;
+    Context context;
 
-    public ReviewListRecyclerViewAdapter(String mStoreName, List<ReviewList> mValues) {
+    public ReviewListRecyclerViewAdapter(String mStoreName, List<ReviewList> mValues, Context context) {
         this.mStoreName = mStoreName;
         this.mValues = mValues;
+        this.context = context;
     }
 
     @Override
@@ -49,10 +54,19 @@ public class ReviewListRecyclerViewAdapter extends RecyclerView.Adapter<ReviewLi
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         if(item.getItemId() == R.id.reviewChat) {
+                            String storeId = Integer.toString(mValues.get(position).getStoreId());
+                            String userId = Integer.toString(mValues.get(position).getUserId());
+                            String userName = mValues.get(position).getUsername();
+
+                            String chatroomId = ((MainActivity) context).makeChatroom(storeId, userId, userName, mStoreName);
+
                             Bundle bundle = new Bundle();
-                            bundle.putInt("CUSTOMERID", mValues.get(position).getUserId());
-                            bundle.putString("CUSTOMERNAME", mValues.get(position).getUsername());
-                            bundle.putString("STORENAME", mStoreName);
+                            bundle.putString("chatroomId", chatroomId);
+                            bundle.putString("userName", userName);
+
+                            Navigation.findNavController((View) (v.getParent().getParent().getParent().getParent()))
+                                    .navigate(R.id.action_reviewListFragment_to_conversationFragment, bundle);
+
                             //TODO: 여기 조치
                             System.out.println(mStoreName);
                             System.out.println("CHAT");

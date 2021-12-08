@@ -42,11 +42,15 @@ public class ChatroomAdapter extends RecyclerView.Adapter {
         ((ViewHolder)holder).chatroomItemCustomerName.setText(chatroomInforList.get(position).customerName + " 님");
         ((ViewHolder)holder).chatroomItemContent.setText(chatroomInforList.get(position).lastMessage);
 
-        String timeStamp = chatroomInforList.get(position).lastMessageTimestamp.toString();
-        Long time = Long.parseLong(timeStamp);
-        Date date = new Date(time + 1000 * 60 * 60 * 9);
+        if (chatroomInforList.get(position).lastMessageTimestamp != null) {
+            String timeStamp = chatroomInforList.get(position).lastMessageTimestamp.toString();
+            Long time = Long.parseLong(timeStamp);
+            Date date = new Date(time + 1000 * 60 * 60 * 9);
 
-        ((ViewHolder)holder).chatroomItemTime.setText(simpleDateFormat.format(date));
+            ((ViewHolder) holder).chatroomItemTime.setText(simpleDateFormat.format(date));
+        } else {
+            ((ViewHolder) holder).chatroomItemTime.setText("");
+        }
     }
 
     @Override
@@ -72,7 +76,6 @@ public class ChatroomAdapter extends RecyclerView.Adapter {
                     if (pos != RecyclerView.NO_POSITION) {
                         ChatroomInfor chatroomInfor = chatroomInforList.get(pos);
                         Bundle bundle = new Bundle();
-                        bundle.putString("storeId", storeId);
                         bundle.putString("chatroomId", chatroomInfor.chatroomId);
                         bundle.putString("userName", chatroomInfor.customerName);
                         Navigation.findNavController((View) (v.getParent().getParent().getParent().getParent().getParent().getParent())).navigate(R.id.action_storeManagementFragment_to_conversationFragment, bundle);
