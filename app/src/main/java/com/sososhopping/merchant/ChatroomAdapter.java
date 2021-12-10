@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,7 +20,7 @@ public class ChatroomAdapter extends RecyclerView.Adapter {
 
     Context context;
     String storeId;
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
     ArrayList<ChatroomInfor> chatroomInforList;
 
@@ -43,11 +44,21 @@ public class ChatroomAdapter extends RecyclerView.Adapter {
         ((ViewHolder)holder).chatroomItemContent.setText(chatroomInforList.get(position).lastMessage);
 
         if (chatroomInforList.get(position).lastMessageTimestamp != null) {
-            String timeStamp = chatroomInforList.get(position).lastMessageTimestamp.toString();
-            Long time = Long.parseLong(timeStamp);
-            Date date = new Date(time + 1000 * 60 * 60 * 9);
+            String lastMessageTimeStamp = chatroomInforList.get(position).lastMessageTimestamp.toString();
+            Long lastMessageTime = Long.parseLong(lastMessageTimeStamp);
+            Date date = new Date(lastMessageTime + 1000 * 60 * 60 * 9);
 
             ((ViewHolder) holder).chatroomItemTime.setText(simpleDateFormat.format(date));
+
+            if (chatroomInforList.get(position).leaveChatroomTimestamp != null) {
+                String leaveTimestamp = chatroomInforList.get(position).leaveChatroomTimestamp.toString();
+                Long leaveTime = Long.parseLong(leaveTimestamp);
+                if (lastMessageTime > leaveTime) {
+                    ((ViewHolder) holder).chatroomItemAlarm.setVisibility(View.VISIBLE);
+                }
+            } else {
+                ((ViewHolder) holder).chatroomItemAlarm.setVisibility(View.VISIBLE);
+            }
         } else {
             ((ViewHolder) holder).chatroomItemTime.setText("");
         }
@@ -62,12 +73,14 @@ public class ChatroomAdapter extends RecyclerView.Adapter {
         public TextView chatroomItemCustomerName;
         public TextView chatroomItemTime;
         public TextView chatroomItemContent;
+        public ImageView chatroomItemAlarm;
 
         public ViewHolder(View v) {
             super(v);
             this.chatroomItemCustomerName = v.findViewById(R.id.chatroomItemCustomerName);
             this.chatroomItemTime = v.findViewById(R.id.chatroomItemTime);
             this.chatroomItemContent = v.findViewById(R.id.chatroomItemContent);
+            this.chatroomItemAlarm = v.findViewById(R.id.chatroomItemAlarm);
 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override

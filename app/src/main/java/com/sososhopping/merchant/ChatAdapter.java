@@ -22,7 +22,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
     String userName;
     String ownerUid;
     ArrayList<Chat> chatList;
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
     public ChatAdapter(Context context, String userName, String ownerUid, ArrayList<Chat> chatList) {
         this.context = context;
