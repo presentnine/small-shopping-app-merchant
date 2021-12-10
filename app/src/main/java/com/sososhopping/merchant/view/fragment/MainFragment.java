@@ -66,13 +66,12 @@ public class MainFragment extends Fragment {
             }
         });
 
-        ((MainActivity) getActivity()).mAuth = FirebaseAuth.getInstance();
-        ((MainActivity) getActivity()).mAuth.signInWithCustomToken(TokenStore.getFirebaseToken())
+        ((MainActivity) getActivity()).authResultTask = ((MainActivity) getActivity()).mAuth.signInWithCustomToken(TokenStore.getFirebaseToken())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            ((MainActivity) getActivity()).user = ((MainActivity) getActivity()).mAuth.getCurrentUser();
+                            ((MainActivity) getActivity()).user = task.getResult().getUser();
                             ((MainActivity) getActivity()).afterLogin = true;
                             ((MainActivity) getActivity()).firebaseDatabase = FirebaseDatabase.getInstance();
                             ((MainActivity) getActivity()).ref = ((MainActivity) getActivity()).firebaseDatabase.getReference();

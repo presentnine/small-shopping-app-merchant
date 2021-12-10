@@ -8,13 +8,17 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
 import com.sososhopping.merchant.databinding.ActivityMainBinding;
 import com.sososhopping.merchant.util.token.TokenStore;
 
@@ -22,10 +26,11 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
 
-    public FirebaseAuth mAuth;
+    public FirebaseAuth mAuth = FirebaseAuth.getInstance();
     public FirebaseUser user;
     public FirebaseDatabase firebaseDatabase;
     public DatabaseReference ref;
+    public Task<AuthResult> authResultTask;
     public boolean afterLogin = false;
 
     @Override
@@ -42,14 +47,12 @@ public class MainActivity extends AppCompatActivity {
         if (afterLogin == true) {
             user = mAuth.getCurrentUser();
             if (user == null) {
-                mAuth.signInWithCustomToken(TokenStore.getFirebaseToken())
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                authResultTask = mAuth.signInWithCustomToken(TokenStore.getFirebaseToken())
+                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    user = mAuth.getCurrentUser();
-                                    ref.child("User").child(user.getUid()).child("connection").setValue(true);
-                                }
+                            public void onSuccess(AuthResult authResult) {
+                                user = authResult.getUser();
+                                ref.child("User").child(user.getUid()).child("connection").setValue(true);
                             }
                         });
             }
@@ -74,21 +77,36 @@ public class MainActivity extends AppCompatActivity {
         String ownerUid = user.getUid();
         String chatRoomId = storeId + "@" +  ownerUid + "@" + userUid;
 
-        ChatroomInfor chatRoomInfor = new ChatroomInfor(customerName, storeName, chatRoomId);
-        ref.child("ChatroomInfor")
-                .child(userUid)
-                .child(chatRoomId)
-                .setValue(chatRoomInfor);
+        ref.child("ChatroomUsers").child(chatRoomId).get()
+                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        ChatroomInfor chatRoomInfor = null;
 
-        ref.child("ChatroomInfor")
-                .child(storeId)
-                .child(chatRoomId)
-                .setValue(chatRoomInfor);
+                        if (task.isSuccessful()) {
+                            chatRoomInfor = task.getResult().getValue(ChatroomInfor.class);
+                        }
 
-        ChatroomUsers chatRoomUserInfor = new ChatroomUsers(userUid, ownerUid);
-        ref.child("ChatroomUsers")
-                .child(chatRoomId)
-                .setValue(chatRoomUserInfor);
+                        if (chatRoomInfor == null) {
+                            chatRoomInfor = new ChatroomInfor(customerName, storeName, chatRoomId);
+
+                            ref.child("ChatroomInfor")
+                                    .child(userUid)
+                                    .child(chatRoomId)
+                                    .setValue(chatRoomInfor);
+
+                            ref.child("ChatroomInfor")
+                                    .child(storeId)
+                                    .child(chatRoomId)
+                                    .setValue(chatRoomInfor);
+
+                            ChatroomUsers chatRoomUserInfor = new ChatroomUsers(userUid, ownerUid);
+                            ref.child("ChatroomUsers")
+                                    .child(chatRoomId)
+                                    .setValue(chatRoomUserInfor);
+                        }
+                    }
+                });
 
         return chatRoomId;
     }

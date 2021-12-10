@@ -8,10 +8,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,13 +31,13 @@ public class NestedChatroomFragment extends Fragment {
 
     private int storeId;
 
+    //for firebase
+    private DatabaseReference ref;
+
+    //for view
     private RecyclerView chatRoomRecyclerView;
     private ChatroomAdapter adapter;
     private RecyclerView.LayoutManager chatRoomLayoutManager;
-
-    private DatabaseReference ref;
-    private DatabaseReference chatroomInforRef;
-
     ArrayList<ChatroomInfor> chatroomInforList;
 
     public NestedChatroomFragment() {
@@ -55,8 +58,6 @@ public class NestedChatroomFragment extends Fragment {
         if (getArguments() != null) {
             storeId = getArguments().getInt(STOREID);
         }
-
-        ref = ((MainActivity) getActivity()).ref;
     }
 
     @Override
@@ -66,7 +67,6 @@ public class NestedChatroomFragment extends Fragment {
         FragmentNestedChatroomBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_nested_chatroom, container, false);
 
         chatroomInforList = new ArrayList<>();
-
         chatRoomLayoutManager = new LinearLayoutManager(getContext());
         adapter = new ChatroomAdapter(getContext(), chatroomInforList, Integer.toString(storeId));
 
@@ -75,28 +75,43 @@ public class NestedChatroomFragment extends Fragment {
         chatRoomRecyclerView.scrollToPosition(0);
         chatRoomRecyclerView.setAdapter(adapter);
 
-        setChatroomList();
+        if (((MainActivity) getActivity()).authResultTask.isSuccessful() == true && ((MainActivity) getActivity()).user != null) {
+            Log.d("authResultTask", "authResultTask.isSuccessful() = true");
+            setChatroomList();
+        } else {
+            ((MainActivity) getActivity()).authResultTask.addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                @Override
+                public void onSuccess(AuthResult authResult) {
+                    Log.d("authResultTask", "authResultTask.isSuccessful() = false");
+                    setChatroomList();
+                }
+            });
+        }
 
         return binding.getRoot();
     }
 
     private void setChatroomList() {
-        chatroomInforRef = ref.child(CHATROOMINFOR).child(Integer.toString(storeId)).orderByChild("lastMessageTimestamp").getRef();
-        chatroomInforRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot data : snapshot.getChildren()) {
-                    ChatroomInfor chatroomInfor = data.getValue(ChatroomInfor.class);
-                    chatroomInforList.add(0, chatroomInfor);
-                }
+        ref = ((MainActivity) getActivity()).ref;
+        ref.child(CHATROOMINFOR).child(Integer.toString(storeId))
+                .orderByChild("lastMessageTimestamp")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        chatroomInforList.clear();
 
-                adapter.notifyDataSetChanged();
-            }
+                        for (DataSnapshot data : snapshot.getChildren()) {
+                            ChatroomInfor chatroomInfor = data.getValue(ChatroomInfor.class);
+                            chatroomInforList.add(0, chatroomInfor);
+                        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                        adapter.notifyDataSetChanged();
+                    }
 
-            }
-        });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 }
